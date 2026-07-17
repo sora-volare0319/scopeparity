@@ -32,7 +32,14 @@ function escapeHtml(value) {
 
 function analyticsMarkup() {
   const rawConfig = process.env.VERCEL_OBSERVABILITY_CLIENT_CONFIG;
-  if (!rawConfig) return "";
+  if (!rawConfig) {
+    if (process.env.VERCEL === "1" && process.env.VERCEL_ENV === "production") {
+      throw new Error(
+        "Missing VERCEL_OBSERVABILITY_CLIENT_CONFIG in a Vercel production build. Deploy from source so Vercel can inject Web Analytics configuration; do not deploy a local prebuilt output.",
+      );
+    }
+    return "";
+  }
 
   try {
     const scriptSrc = JSON.parse(rawConfig)?.analytics?.scriptSrc;

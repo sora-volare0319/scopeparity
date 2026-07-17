@@ -100,6 +100,8 @@ The site reads its purchase destinations from environment variables:
 
 An unset URL must render a labelled preview state, never a fake checkout. Provider credentials and webhook secrets are server-only and must not appear in Vite environment variables.
 
+The static guide builder receives Vercel Web Analytics' randomized first-party script path through `VERCEL_OBSERVABILITY_CLIENT_CONFIG`. Production must therefore be built from source on Vercel with `vercel deploy --prod` or the connected Git repository. A local `vercel build --prod` followed by `vercel deploy --prebuilt --prod` omits that system configuration and is rejected by the build guard. After deployment, verify one static guide contains `/analytics-init.js` and the generated first-party analytics script; the React home route uses the same official `@vercel/analytics` package at runtime.
+
 ## External onboarding dependency
 
 Opening a live Merchant of Record store requires the seller’s identity, payout destination, and provider approval. Those cannot be fabricated or delegated to code. The site, product, sample report, and test-mode integration can be completed first; live payment acceptance becomes the first explicit external-account gate.
