@@ -14,3 +14,4 @@ scopeparity-evidence/
 /apps/site/public/guides/
 # Paid product source is maintained and released from its own private repository.
 /commercial/
+.vercel

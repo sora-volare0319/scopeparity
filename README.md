@@ -4,6 +4,8 @@ ScopeParity is a local-first Google OAuth scope-drift scanner and launch evidenc
 
 ScopeParity does **not** approve apps, interpret policy or law, assess restricted scopes, or require Google credentials.
 
+[Open the interactive report](https://scopeparity.vercel.app/) · [Read the exact-error guides](https://scopeparity.vercel.app/guides/)
+
 ## Run the public scanner
 
 ```bash
