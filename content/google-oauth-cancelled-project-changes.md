@@ -42,13 +42,13 @@ ScopeParity can produce the second snapshot without Google credentials. It canno
 If the project does not yet have a manifest:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .
 ```
 
 After replacing the example values with the configuration you intend to submit, generate a versioned JSON report:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . \
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . \
   --manifest oauth-evidence.yaml \
   --report scopeparity-submission-snapshot.json
 ```

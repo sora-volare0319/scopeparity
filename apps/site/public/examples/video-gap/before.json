@@ -1,0 +1,71 @@
+{
+  "product": "ScopeParity",
+  "rulesetVersion": "2026.07.18.2",
+  "rulesetReviewedAt": "2026-07-18",
+  "reportId": "SP-1D458BBFF7",
+  "manifestDigestSha256": "88a119cb907d7c17a1d2b573e8373a71eab8f9e3b24c68a2d4e316622fc635b2",
+  "generatedAt": "2026-07-18T00:00:00.000Z",
+  "manifestPath": "oauth-evidence.yaml",
+  "scannedFiles": 1,
+  "stoppedAtRestrictedScopeBoundary": false,
+  "summary": {
+    "blockers": 1,
+    "manual": 0,
+    "complete": 2
+  },
+  "scopes": [
+    {
+      "scope": "https://www.googleapis.com/auth/calendar.readonly",
+      "classification": "sensitive",
+      "locations": [
+        {
+          "path": "src/auth.ts",
+          "line": 2
+        }
+      ],
+      "sourceUrl": "https://developers.google.com/identity/protocols/oauth2/scopes"
+    }
+  ],
+  "findings": [
+    {
+      "ruleId": "SCOPE_SET_IN_PARITY",
+      "severity": "complete",
+      "category": "scope",
+      "title": "Source and manifest scope sets are in parity.",
+      "message": "Every normalized literal scope found in source is declared, and every declaration was found.",
+      "remediation": "Keep this comparison in CI so later scope changes produce a reviewable diff.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/7454865?hl=en",
+      "blocking": false
+    },
+    {
+      "ruleId": "DOMAIN_SET_IN_PARITY",
+      "severity": "complete",
+      "category": "domain",
+      "title": "Declared public and redirect hosts share the authorized-domain contract.",
+      "message": "No objective host mismatch was found in the secret-free manifest.",
+      "remediation": "Confirm domain ownership in Google Search Console before submission.",
+      "evidence": [
+        "nimbric.example"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/13464321?hl=en",
+      "blocking": false
+    },
+    {
+      "ruleId": "VIDEO_STEP_MISSING_FOR_SCOPE",
+      "severity": "blocker",
+      "category": "evidence",
+      "title": "A declared scope is absent from the demonstration storyboard.",
+      "message": "https://www.googleapis.com/auth/calendar.readonly has no recording step that demonstrates the corresponding feature.",
+      "remediation": "Add a shot that begins at a reproducible route and visibly exercises the feature using this scope.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/15549135?hl=en",
+      "blocking": true
+    }
+  ],
+  "storyboard": []
+}

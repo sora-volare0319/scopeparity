@@ -15,13 +15,13 @@ Sales status: checkout is not live. ScopeParity is not currently accepting payme
 Install and initialize:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .
 ```
 
 After filling in the generated secret-free manifest, run the local scan:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml
 ```
 
 ## Founding validation reservation

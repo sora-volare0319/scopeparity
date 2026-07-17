@@ -1,0 +1,94 @@
+{
+  "product": "ScopeParity",
+  "rulesetVersion": "2026.07.18.2",
+  "rulesetReviewedAt": "2026-07-18",
+  "reportId": "SP-D7FFDE0FE2",
+  "manifestDigestSha256": "7e4d42dc6f9ca3921a2577d2dd6911a5ac69626419eb33f7140f49059e9f6866",
+  "generatedAt": "2026-07-18T00:00:00.000Z",
+  "manifestPath": "oauth-evidence.yaml",
+  "scannedFiles": 1,
+  "stoppedAtRestrictedScopeBoundary": false,
+  "summary": {
+    "blockers": 2,
+    "manual": 0,
+    "complete": 2
+  },
+  "scopes": [
+    {
+      "scope": "https://www.googleapis.com/auth/calendar.readonly",
+      "classification": "sensitive",
+      "locations": [
+        {
+          "path": "src/auth.ts",
+          "line": 2
+        }
+      ],
+      "sourceUrl": "https://developers.google.com/identity/protocols/oauth2/scopes"
+    }
+  ],
+  "findings": [
+    {
+      "ruleId": "SCOPE_SET_IN_PARITY",
+      "severity": "complete",
+      "category": "scope",
+      "title": "Source and manifest scope sets are in parity.",
+      "message": "Every normalized literal scope found in source is declared, and every declaration was found.",
+      "remediation": "Keep this comparison in CI so later scope changes produce a reviewable diff.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/7454865?hl=en",
+      "blocking": false
+    },
+    {
+      "ruleId": "REDIRECT_HOST_NOT_AUTHORIZED",
+      "severity": "blocker",
+      "category": "domain",
+      "title": "A redirect host is not covered by a declared authorized domain.",
+      "message": "preview.unlisted-example.test is used by a redirect URI but is not covered by oauth.authorizedDomains.",
+      "remediation": "Remove the redirect from the launch set or reconcile the intended authorized domain.",
+      "evidence": [
+        "https://preview.unlisted-example.test/auth/google/callback",
+        "authorized: tavrenlo.example"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/13464321?hl=en",
+      "blocking": true
+    },
+    {
+      "ruleId": "PRIVACY_URL_EQUALS_HOMEPAGE",
+      "severity": "blocker",
+      "category": "public-surface",
+      "title": "The privacy-policy URL is the same as the homepage URL.",
+      "message": "Google requires a dedicated privacy-policy URL that differs from the submitted homepage URL.",
+      "remediation": "Publish a dedicated privacy page and record that exact URL in the launch manifest.",
+      "evidence": [
+        "https://tavrenlo.example"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/13806988?hl=en",
+      "blocking": true
+    },
+    {
+      "ruleId": "SCOPE_EVIDENCE_TRACE_COMPLETE",
+      "severity": "complete",
+      "category": "evidence",
+      "title": "Every declared scope maps to a feature and a recording step.",
+      "message": "The manifest contains a complete technical trace from scope to feature to storyboard.",
+      "remediation": "Record the live product as described and verify the final video manually.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/15549135?hl=en",
+      "blocking": false
+    }
+  ],
+  "storyboard": [
+    {
+      "index": 1,
+      "title": "Open launch milestones populated from Google Calendar",
+      "route": "/milestones",
+      "scopes": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ]
+    }
+  ]
+}

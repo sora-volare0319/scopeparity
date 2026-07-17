@@ -18,7 +18,11 @@ describe("ScopeParity marketing site", () => {
     expect(screen.getByText(/Future releases are separate/)).toBeInTheDocument();
     expect(screen.getByText("No Google credentials")).toBeInTheDocument();
     expect(screen.getByText(/Approval, verification, or a probability of passing/)).toBeInTheDocument();
-    expect(screen.getByText(/This interactive report uses invented domains/)).toBeInTheDocument();
+    expect(screen.getByText(/This interactive walkthrough uses invented domains/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Open reproducible examples/ })).toHaveAttribute(
+      "href",
+      "/examples/",
+    );
   });
 
   it("switches sample findings and exposes the aligned fixture without implying approval", async () => {
@@ -49,8 +53,8 @@ describe("ScopeParity marketing site", () => {
       }),
     ).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: /HOMEPAGE_PURPOSE_CONFIRM_MANUALLY/ }));
-    expect(screen.getByText(/It does not decide whether the product description is sufficient/)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /DOMAIN_OWNERSHIP_CONFIRM_MANUALLY/ }));
+    expect(screen.getByText(/does not request Search Console credentials/)).toBeInTheDocument();
   });
 
   it("copies the safe first-run command and exposes the scan command as step two", async () => {
@@ -61,7 +65,7 @@ describe("ScopeParity marketing site", () => {
     await user.click(screen.getAllByRole("button", { name: "Copy create manifest command" })[0]!);
 
     expect(clipboardWrite).toHaveBeenCalledWith(
-      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .",
+      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .",
     );
     expect(screen.getAllByRole("button", { name: "Copied create manifest command" })[0]).toBeInTheDocument();
 
@@ -69,7 +73,7 @@ describe("ScopeParity marketing site", () => {
     await user.click(screen.getAllByRole("button", { name: "Copy run scan command" })[0]!);
 
     expect(clipboardWrite).toHaveBeenLastCalledWith(
-      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml",
+      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml",
     );
     expect(screen.getAllByRole("button", { name: "Copied run scan command" })[0]).toBeInTheDocument();
   });

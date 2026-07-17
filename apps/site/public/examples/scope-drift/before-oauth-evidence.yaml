@@ -1,0 +1,29 @@
+schemaVersion: 1
+app:
+  name: "Avenquill Calendar"
+  supportEmailDomain: "avenquill.example"
+  homepageUrl: "https://avenquill.example"
+  privacyPolicyUrl: "https://avenquill.example/privacy"
+oauth:
+  authorizedDomains:
+    - "avenquill.example"
+  redirectUris:
+    - "https://app.avenquill.example/auth/google/callback"
+  declaredScopes:
+    - "https://www.googleapis.com/auth/calendar.readonly"
+features:
+  - name: "Read upcoming calendar events"
+    route: "/calendar/upcoming"
+    scopes:
+      - "https://www.googleapis.com/auth/calendar.readonly"
+evidence:
+  domainOwnershipVerified: true
+  video:
+    completed: false
+    steps:
+      - title: "Open the upcoming-events view"
+        route: "/calendar/upcoming"
+        scopes:
+          - "https://www.googleapis.com/auth/calendar.readonly"
+checks:
+  publicUrls: false

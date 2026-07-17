@@ -7,16 +7,25 @@ const siteDirectory = path.resolve(scriptDirectory, "..");
 const outputPath = path.join(siteDirectory, "dist", "index.html");
 const serverDirectory = path.join(siteDirectory, ".ssr");
 const serverEntryPath = path.join(serverDirectory, "entry-server.js");
+const rootStartMarker = "<!--scopeparity-prerender:start-->";
+const rootEndMarker = "<!--scopeparity-prerender:end-->";
 
 const template = await readFile(outputPath, "utf8");
 const { render } = await import(pathToFileURL(serverEntryPath).href);
 const rendered = render();
 
-if (!template.includes('<div id="root"></div>')) {
-  throw new Error("Home prerender target was not found in the Vite output");
+const rootStart = template.indexOf(rootStartMarker);
+const rootEnd = template.indexOf(rootEndMarker);
+if (rootStart < 0 || rootEnd <= rootStart) {
+  throw new Error("Home prerender boundary was not found in the Vite output");
 }
 
-await writeFile(outputPath, template.replace('<div id="root"></div>', `<div id="root">${rendered}</div>`), "utf8");
+const prerenderedRoot = `${rootStartMarker}<div id="root">${rendered}</div>${rootEndMarker}`;
+await writeFile(
+  outputPath,
+  `${template.slice(0, rootStart)}${prerenderedRoot}${template.slice(rootEnd + rootEndMarker.length)}`,
+  "utf8",
+);
 await rm(serverDirectory, { recursive: true, force: true });
 
 process.stdout.write("Prerendered the ScopeParity home route.\n");

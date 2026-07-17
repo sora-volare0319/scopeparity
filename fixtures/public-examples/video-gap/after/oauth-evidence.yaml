@@ -1,0 +1,29 @@
+schemaVersion: 1
+app:
+  name: "Nimbric Brief"
+  supportEmailDomain: "nimbric.example"
+  homepageUrl: "https://nimbric.example"
+  privacyPolicyUrl: "https://nimbric.example/privacy"
+oauth:
+  authorizedDomains:
+    - "nimbric.example"
+  redirectUris:
+    - "https://app.nimbric.example/auth/google/callback"
+  declaredScopes:
+    - "https://www.googleapis.com/auth/calendar.readonly"
+features:
+  - name: "Show today's calendar briefing"
+    route: "/briefing/today"
+    scopes:
+      - "https://www.googleapis.com/auth/calendar.readonly"
+evidence:
+  domainOwnershipVerified: true
+  video:
+    completed: false
+    steps:
+      - title: "Connect Google Calendar and open today's briefing"
+        route: "/briefing/today"
+        scopes:
+          - "https://www.googleapis.com/auth/calendar.readonly"
+checks:
+  publicUrls: false

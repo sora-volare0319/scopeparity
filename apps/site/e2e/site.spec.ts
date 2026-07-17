@@ -30,13 +30,13 @@ test("landing page explains the boundary and keeps checkout honest", async ({ pa
   await expect(page.getByText("Checkout preview.", { exact: false })).toBeVisible();
   await expect(page.getByText("ScopeParity stops where evidence becomes judgment.")).toBeVisible();
   await expect(
-    page.getByText("npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .", { exact: true }).first(),
+    page.getByText("npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .", { exact: true }).first(),
   ).toBeVisible();
   await page.getByRole("button", { name: "2 Run scan" }).first().click();
   await expect(
     page
       .getByText(
-        "npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml",
+        "npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml",
         { exact: true },
       )
       .first(),
@@ -44,6 +44,10 @@ test("landing page explains the boundary and keeps checkout honest", async ({ pa
   await expect(page.getByRole("link", { name: "Share purchase interest on GitHub" })).toHaveAttribute(
     "href",
     "https://github.com/sora-volare0319/scopeparity/issues/new?template=workspace-interest.yml",
+  );
+  await expect(page.getByRole("link", { name: /Open reproducible examples/ })).toHaveAttribute(
+    "href",
+    "/examples/",
   );
 
   await page.getByRole("button", { name: "After fixes" }).click();
@@ -62,7 +66,7 @@ test("home and agent-readable product facts are present without client rendering
   const home = await homeResponse.text();
   expect(home).not.toContain('<div id="root"></div>');
   expect(home).toContain('<h1 id="hero-title">See the technical story Google will compare, before you submit it.</h1>');
-  expect(home).toContain("scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml");
+  expect(home).toContain("scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml");
   expect(home).toContain('itemType="https://schema.org/SoftwareApplication"');
   expect(home).toContain('itemType="https://schema.org/FAQPage"');
 
@@ -70,7 +74,7 @@ test("home and agent-readable product facts are present without client rendering
   expect(pricingResponse.ok()).toBe(true);
   const pricing = await pricingResponse.text();
   expect(pricing).toContain("Sales status: checkout is not live.");
-  expect(pricing).toContain("scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml");
+  expect(pricing).toContain("scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml");
 
   const llmsResponse = await request.get("/llms.txt");
   expect(llmsResponse.ok()).toBe(true);
@@ -78,7 +82,129 @@ test("home and agent-readable product facts are present without client rendering
 
   const sitemapResponse = await request.get("/sitemap.xml");
   expect(sitemapResponse.ok()).toBe(true);
-  expect(await sitemapResponse.text()).toContain("https://scopeparity.vercel.app/pricing.md");
+  const sitemap = await sitemapResponse.text();
+  expect(sitemap).toContain("https://scopeparity.vercel.app/pricing.md");
+  expect(sitemap).toContain("https://scopeparity.vercel.app/examples/");
+  expect(sitemap).toContain("https://scopeparity.vercel.app/examples/scope-drift/");
+});
+
+test("public example hub and case remain navigable, precise, and accessible", async ({ page }) => {
+  await page.goto("/examples/");
+
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(
+    page.getByRole("heading", { level: 1, name: "See the difference before running the scan." }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: /The runtime asks for one scope/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /The code and manifest agree/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /The privacy URL duplicates the homepage/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Skip to content" })).toHaveAttribute("href", "#main-content");
+  await expect(page.locator("#main-content")).toHaveCount(1);
+  await expect(
+    page.getByText(
+      "git clone --depth 1 --branch v0.1.4 https://github.com/sora-volare0319/scopeparity.git",
+      { exact: false },
+    ),
+  ).toBeVisible();
+  await expect(page.getByText(/pinned ruleset 2026\.07\.18\.2/i)).toBeVisible();
+  await expect(page.getByText(/Finding order, rule IDs, counts, and report IDs/)).toBeVisible();
+  await expect(page.getByText("generatedAt", { exact: true })).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+
+  await page.goto("/examples/scope-drift/");
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.getByText("Before · 2 must fix", { exact: true })).toBeVisible();
+  await expect(page.getByText("After · 0 must fix", { exact: true })).toBeVisible();
+  for (const name of [
+    "Before HTML report",
+    "Before JSON report",
+    "Before manifest",
+    "Before source",
+    "After HTML report",
+    "After JSON report",
+    "After manifest",
+    "After source",
+  ]) {
+    await expect(page.getByRole("link", { name, exact: true })).toBeVisible();
+  }
+  await expect(page.getByRole("link", { name: "Diagnose a rejected scope justification" })).toHaveAttribute(
+    "href",
+    "/guides/scope-justification-rejected/",
+  );
+  await expect(page.getByRole("link", { name: "Run ScopeParity on your repository" })).toHaveAttribute(
+    "href",
+    "/#cli",
+  );
+  await expect(
+    page.getByText(
+      "git clone --depth 1 --branch v0.1.4 https://github.com/sora-volare0319/scopeparity.git",
+      { exact: true },
+    ),
+  ).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+test("all public cases and HTML reports fit desktop and mobile viewports", async ({ page }) => {
+  const cases = [
+    { slug: "scope-drift", beforeBlockers: 2 },
+    { slug: "video-gap", beforeBlockers: 1 },
+    { slug: "identity-config", beforeBlockers: 2 },
+  ];
+
+  for (const fixture of cases) {
+    await page.goto(`/examples/${fixture.slug}/`);
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.getByText(`Before · ${fixture.beforeBlockers} must fix`, { exact: true })).toBeVisible();
+    await expect(page.getByText("After · 0 must fix", { exact: true })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+
+    for (const phase of ["before", "after"]) {
+      await page.goto(`/examples/${fixture.slug}/${phase}.html`);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex,follow");
+      await expectNoHorizontalOverflow(page);
+      expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    }
+  }
+});
+
+test("public fixture pages and generated reports preserve the deterministic contract", async ({ request }) => {
+  const cases = [
+    { slug: "scope-drift", blockers: 2 },
+    { slug: "video-gap", blockers: 1 },
+    { slug: "identity-config", blockers: 2 },
+  ];
+
+  for (const fixture of cases) {
+    const caseResponse = await request.get(`/examples/${fixture.slug}/`);
+    expect(caseResponse.ok()).toBe(true);
+    const caseHtml = await caseResponse.text();
+    expect(caseHtml).toContain('<meta name="robots" content="index,follow">');
+    expect(caseHtml).toContain(`<link rel="canonical" href="https://scopeparity.vercel.app/examples/${fixture.slug}/">`);
+    expect(caseHtml).toContain("Skip to content");
+
+    const beforeResponse = await request.get(`/examples/${fixture.slug}/before.json`);
+    expect(beforeResponse.ok()).toBe(true);
+    const beforeReport = await beforeResponse.json();
+    expect(beforeReport.summary.blockers).toBe(fixture.blockers);
+
+    const afterResponse = await request.get(`/examples/${fixture.slug}/after.json`);
+    expect(afterResponse.ok()).toBe(true);
+    const afterReport = await afterResponse.json();
+    expect(afterReport.summary).toMatchObject({ blockers: 0, manual: 0, complete: 3 });
+
+    const sourceResponse = await request.get(`/examples/${fixture.slug}/before-auth.ts.txt`);
+    expect(sourceResponse.ok()).toBe(true);
+    expect(sourceResponse.headers()["content-type"]).toContain("text/plain");
+
+    for (const phase of ["before", "after"]) {
+      const reportResponse = await request.get(`/examples/${fixture.slug}/${phase}.html`);
+      expect(reportResponse.ok()).toBe(true);
+      expect(await reportResponse.text()).toContain('<meta name="robots" content="noindex,follow">');
+    }
+  }
 });
 
 test("static exact-intent guide is rendered and accessible", async ({ page }) => {
@@ -94,10 +220,14 @@ test("static exact-intent guide is rendered and accessible", async ({ page }) =>
   await expect(page.locator('article[itemtype="https://schema.org/TechArticle"]')).toHaveCount(1);
   await expect(page.locator('time[itemprop="dateModified"]')).toHaveText("18 July 2026");
   await expect(page.getByText("ScopeParity maintainers")).toBeVisible();
+  await expect(page.getByRole("link", { name: "scope-set drift before/after fixture" })).toHaveAttribute(
+    "href",
+    "/examples/scope-drift/",
+  );
   await expect(page.getByRole("heading", { name: "Check these surfaces in order" })).toBeVisible();
   await expect(
     page
-      .getByText("npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan .", { exact: true })
+      .getByText("npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan .", { exact: true })
       .first(),
   ).toBeVisible();
   await expectNoHorizontalOverflow(page);

@@ -1,0 +1,29 @@
+schemaVersion: 1
+app:
+  name: "Tavrenlo Calendar"
+  supportEmailDomain: "tavrenlo.example"
+  homepageUrl: "https://tavrenlo.example"
+  privacyPolicyUrl: "https://tavrenlo.example/privacy"
+oauth:
+  authorizedDomains:
+    - "tavrenlo.example"
+  redirectUris:
+    - "https://app.tavrenlo.example/auth/google/callback"
+  declaredScopes:
+    - "https://www.googleapis.com/auth/calendar.readonly"
+features:
+  - name: "Read launch milestones from Google Calendar"
+    route: "/milestones"
+    scopes:
+      - "https://www.googleapis.com/auth/calendar.readonly"
+evidence:
+  domainOwnershipVerified: true
+  video:
+    completed: false
+    steps:
+      - title: "Open launch milestones populated from Google Calendar"
+        route: "/milestones"
+        scopes:
+          - "https://www.googleapis.com/auth/calendar.readonly"
+checks:
+  publicUrls: false

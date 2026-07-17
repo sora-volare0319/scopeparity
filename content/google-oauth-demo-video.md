@@ -45,18 +45,22 @@ ScopeParity can flag those gaps, but it cannot decide whether the feature justif
 For a first run, create the secret-free manifest, replace the example values, and map each requested scope to a feature and recording step:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .
 ```
 
 Then generate the local report:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . \
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . \
   --manifest oauth-evidence.yaml \
   --report scopeparity-report.html
 ```
 
 The report groups shots by scope and includes source locations, manifest evidence, and official references. It is a planning artifact, not an approval certificate.
+
+## Inspect the reproducible example
+
+Inspect the [missing video-step before/after fixture](/examples/video-gap/) to see a source/manifest pair that already agrees while its recording trace remains incomplete.
 
 ## Official sources
 

@@ -51,7 +51,7 @@ describe("runCli", () => {
 
     await expect(runCli(["--version"], output.io)).resolves.toBe(0);
 
-    expect(output.stdout()).toBe("0.1.3\n");
+    expect(output.stdout()).toBe("0.1.4\n");
   });
 
   it("initializes once and returns input-error exit code on overwrite", async () => {

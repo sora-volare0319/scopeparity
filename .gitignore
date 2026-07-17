@@ -13,6 +13,8 @@ scopeparity-report.json
 scopeparity-evidence/
 /apps/site/public/guides/
 /apps/site/public/privacy/
+/apps/site/public/examples/index.html
+/apps/site/public/examples/*/index.html
 /apps/site/.ssr/
 /outputs/
 # Paid product source is maintained and released from its own private repository.

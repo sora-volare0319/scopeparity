@@ -1,0 +1,93 @@
+{
+  "product": "ScopeParity",
+  "rulesetVersion": "2026.07.18.2",
+  "rulesetReviewedAt": "2026-07-18",
+  "reportId": "SP-8175AC25F5",
+  "manifestDigestSha256": "9a894d79a92d34d948a8c9b5df42c3f1811cd36c3b389f807d61eadaf28e9f17",
+  "generatedAt": "2026-07-18T00:00:00.000Z",
+  "manifestPath": "oauth-evidence.yaml",
+  "scannedFiles": 1,
+  "stoppedAtRestrictedScopeBoundary": false,
+  "summary": {
+    "blockers": 2,
+    "manual": 0,
+    "complete": 2
+  },
+  "scopes": [
+    {
+      "scope": "https://www.googleapis.com/auth/calendar.events",
+      "classification": "sensitive",
+      "locations": [
+        {
+          "path": "src/auth.ts",
+          "line": 2
+        }
+      ],
+      "sourceUrl": "https://developers.google.com/identity/protocols/oauth2/scopes"
+    }
+  ],
+  "findings": [
+    {
+      "ruleId": "SCOPE_IN_CODE_NOT_DECLARED",
+      "severity": "blocker",
+      "category": "scope",
+      "title": "A scope requested in source is absent from the submission manifest.",
+      "message": "https://www.googleapis.com/auth/calendar.events appears in tracked source but is not declared in oauth.declaredScopes.",
+      "remediation": "Confirm which scope the shipped feature needs, then make the runtime request and intended consent-screen declaration match.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.events · src/auth.ts:2"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/7454865?hl=en",
+      "blocking": true
+    },
+    {
+      "ruleId": "DECLARED_SCOPE_NOT_FOUND_IN_CODE",
+      "severity": "blocker",
+      "category": "scope",
+      "title": "A declared scope was not found in tracked source.",
+      "message": "https://www.googleapis.com/auth/calendar.readonly is declared in the manifest but was not found as a literal in supported tracked files.",
+      "remediation": "Remove an unused declaration or confirm that a supported runtime builds this scope dynamically and document that exception.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/13464321?hl=en",
+      "blocking": true
+    },
+    {
+      "ruleId": "DOMAIN_SET_IN_PARITY",
+      "severity": "complete",
+      "category": "domain",
+      "title": "Declared public and redirect hosts share the authorized-domain contract.",
+      "message": "No objective host mismatch was found in the secret-free manifest.",
+      "remediation": "Confirm domain ownership in Google Search Console before submission.",
+      "evidence": [
+        "avenquill.example"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/13464321?hl=en",
+      "blocking": false
+    },
+    {
+      "ruleId": "SCOPE_EVIDENCE_TRACE_COMPLETE",
+      "severity": "complete",
+      "category": "evidence",
+      "title": "Every declared scope maps to a feature and a recording step.",
+      "message": "The manifest contains a complete technical trace from scope to feature to storyboard.",
+      "remediation": "Record the live product as described and verify the final video manually.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/15549135?hl=en",
+      "blocking": false
+    }
+  ],
+  "storyboard": [
+    {
+      "index": 1,
+      "title": "Open the upcoming-events view",
+      "route": "/calendar/upcoming",
+      "scopes": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ]
+    }
+  ]
+}

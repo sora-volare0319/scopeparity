@@ -21,6 +21,13 @@ ScopeParity is for public external apps preparing sensitive, non-restricted Goog
 - [Homepage verification failed](https://scopeparity.vercel.app/guides/homepage-verification-failed/): Check reachability, redirects, domains, app identity, and privacy-link evidence without judging policy text.
 - [When verification is not required](https://scopeparity.vercel.app/guides/when-verification-not-needed/): Disqualify internal, development, personal-use, and non-sensitive projects.
 
+## Reproducible examples
+
+- [Before and after reports](https://scopeparity.vercel.app/examples/): Three synthetic Git-tracked projects covering scope-set drift, a missing recording step, and public identity configuration drift.
+- Every example publishes its source literal, secret-free manifest, pinned JSON snapshot, and self-contained HTML report.
+- Rule IDs, counts, finding order, and report IDs reproduce for the pinned inputs and ruleset. Local runs record their actual generatedAt time; the public snapshots pin that field only for stable diffs.
+- The after snapshots have zero objective fixture blockers; they do not claim completed video, domain ownership, policy sufficiency, verification, or approval.
+
 ## Operating boundary
 
 - No affiliation with Google.

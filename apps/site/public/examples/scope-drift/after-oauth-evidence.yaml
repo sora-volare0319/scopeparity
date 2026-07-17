@@ -1,0 +1,29 @@
+schemaVersion: 1
+app:
+  name: "Avenquill Calendar"
+  supportEmailDomain: "avenquill.example"
+  homepageUrl: "https://avenquill.example"
+  privacyPolicyUrl: "https://avenquill.example/privacy"
+oauth:
+  authorizedDomains:
+    - "avenquill.example"
+  redirectUris:
+    - "https://app.avenquill.example/auth/google/callback"
+  declaredScopes:
+    - "https://www.googleapis.com/auth/calendar.events"
+features:
+  - name: "Create a planning event"
+    route: "/calendar/planning"
+    scopes:
+      - "https://www.googleapis.com/auth/calendar.events"
+evidence:
+  domainOwnershipVerified: true
+  video:
+    completed: false
+    steps:
+      - title: "Create a planning event and show it in Google Calendar"
+        route: "/calendar/planning"
+        scopes:
+          - "https://www.googleapis.com/auth/calendar.events"
+checks:
+  publicUrls: false

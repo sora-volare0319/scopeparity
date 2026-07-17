@@ -27,9 +27,9 @@ Each page must contain an exact diagnostic tree, a reproducible local check, a l
 The free product must be complete enough to be trusted:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .
 # Edit the generated secret-free manifest, then:
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml
 ```
 
 It shows the scope inventory, every objective finding, source locations without source lines, an optional public-surface check, and HTML/JSON diagnostic output. The output includes a stable report ID derived locally from the ruleset and manifest, but no repository content or identifier is sent anywhere.

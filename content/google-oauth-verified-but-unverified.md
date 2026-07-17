@@ -51,13 +51,13 @@ Confirm which OAuth client created the warning. Development, staging, browser, m
 For a first run, create the secret-free manifest and replace the example values with the launch values you intend to submit:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .
 ```
 
 Then run the local comparison:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml
 ```
 
 ScopeParity reads tracked, allowed source files and compares scope strings with a secret-free manifest. It reports file paths and line numbers, never source lines, and does not ask for Google credentials.
@@ -65,6 +65,10 @@ ScopeParity reads tracked, allowed source files and compares scope strings with 
 ## What this cannot tell you
 
 A matching scope set does not mean that Google will approve the app. Reviewers also evaluate whether the feature and use case support the requested access, whether a narrower scope is sufficient, and whether the public disclosures accurately describe data use. Those are outside a deterministic source/config comparison.
+
+## Inspect the reproducible example
+
+Inspect the [scope-set drift before/after fixture](/examples/scope-drift/) to compare current runtime literals with a stale submission snapshot without implying access to the live Google Cloud project.
 
 ## Official sources
 

@@ -1,0 +1,74 @@
+{
+  "snapshotAt": "2026-07-18T00:00:00.000Z",
+  "rulesetVersion": "2026.07.18.2",
+  "cases": [
+    {
+      "slug": "scope-drift",
+      "seoTitle": "Google OAuth scope mismatch before/after scan example",
+      "eyebrow": "Code ↔ submission scope set",
+      "title": "The runtime asks for one scope. The manifest declares another.",
+      "description": "A synthetic Calendar app shows two objective scope-set differences, then the same project after its runtime, feature, and recording evidence are aligned.",
+      "beforeLabel": "Two objective differences",
+      "afterLabel": "Scope, domain, and evidence traces align",
+      "repair": "Replace the stale readonly declaration with the shipped write scope, then update the feature and recording step to describe that actual behavior.",
+      "guidePath": "/guides/scope-justification-rejected/",
+      "guideLabel": "Diagnose a rejected scope justification",
+      "beforeRules": [
+        "SCOPE_IN_CODE_NOT_DECLARED",
+        "DECLARED_SCOPE_NOT_FOUND_IN_CODE",
+        "DOMAIN_SET_IN_PARITY",
+        "SCOPE_EVIDENCE_TRACE_COMPLETE"
+      ],
+      "afterRules": [
+        "SCOPE_SET_IN_PARITY",
+        "DOMAIN_SET_IN_PARITY",
+        "SCOPE_EVIDENCE_TRACE_COMPLETE"
+      ]
+    },
+    {
+      "slug": "video-gap",
+      "seoTitle": "Google OAuth demo-video evidence gap before/after example",
+      "eyebrow": "Scope ↔ recording storyboard",
+      "title": "The code and manifest agree. The demo plan still skips the scope.",
+      "description": "A synthetic Calendar briefing app isolates one missing per-scope recording step without inventing code drift or domain problems.",
+      "beforeLabel": "One objective evidence gap",
+      "afterLabel": "Every scope has a mapped storyboard step",
+      "repair": "Add one recording step that starts at the feature route and visibly exercises the declared Calendar scope.",
+      "guidePath": "/guides/demo-video/",
+      "guideLabel": "Build a scope-by-scope demo video",
+      "beforeRules": [
+        "SCOPE_SET_IN_PARITY",
+        "DOMAIN_SET_IN_PARITY",
+        "VIDEO_STEP_MISSING_FOR_SCOPE"
+      ],
+      "afterRules": [
+        "SCOPE_SET_IN_PARITY",
+        "DOMAIN_SET_IN_PARITY",
+        "SCOPE_EVIDENCE_TRACE_COMPLETE"
+      ]
+    },
+    {
+      "slug": "identity-config",
+      "seoTitle": "Google OAuth redirect and privacy URL mismatch example",
+      "eyebrow": "Declared URLs ↔ redirect contract",
+      "title": "The privacy URL duplicates the homepage. A preview redirect escaped the domain set.",
+      "description": "A synthetic Calendar app demonstrates two secret-free public configuration differences, then the dedicated privacy page and launch redirect values after alignment.",
+      "beforeLabel": "Two objective configuration differences",
+      "afterLabel": "Manifest privacy and redirect values align",
+      "repair": "Use a dedicated privacy-policy URL and replace the unlisted preview redirect with the intended launch-domain redirect.",
+      "guidePath": "/guides/homepage-verification-failed/",
+      "guideLabel": "Diagnose homepage verification failures",
+      "beforeRules": [
+        "SCOPE_SET_IN_PARITY",
+        "REDIRECT_HOST_NOT_AUTHORIZED",
+        "PRIVACY_URL_EQUALS_HOMEPAGE",
+        "SCOPE_EVIDENCE_TRACE_COMPLETE"
+      ],
+      "afterRules": [
+        "SCOPE_SET_IN_PARITY",
+        "DOMAIN_SET_IN_PARITY",
+        "SCOPE_EVIDENCE_TRACE_COMPLETE"
+      ]
+    }
+  ]
+}

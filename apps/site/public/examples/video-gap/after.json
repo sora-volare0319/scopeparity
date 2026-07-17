@@ -1,0 +1,80 @@
+{
+  "product": "ScopeParity",
+  "rulesetVersion": "2026.07.18.2",
+  "rulesetReviewedAt": "2026-07-18",
+  "reportId": "SP-15B53A659B",
+  "manifestDigestSha256": "53d9570abe2764ad6e2013233d20790a94e091964c80f41f2174bf5f7cd2b86a",
+  "generatedAt": "2026-07-18T00:00:00.000Z",
+  "manifestPath": "oauth-evidence.yaml",
+  "scannedFiles": 1,
+  "stoppedAtRestrictedScopeBoundary": false,
+  "summary": {
+    "blockers": 0,
+    "manual": 0,
+    "complete": 3
+  },
+  "scopes": [
+    {
+      "scope": "https://www.googleapis.com/auth/calendar.readonly",
+      "classification": "sensitive",
+      "locations": [
+        {
+          "path": "src/auth.ts",
+          "line": 2
+        }
+      ],
+      "sourceUrl": "https://developers.google.com/identity/protocols/oauth2/scopes"
+    }
+  ],
+  "findings": [
+    {
+      "ruleId": "SCOPE_SET_IN_PARITY",
+      "severity": "complete",
+      "category": "scope",
+      "title": "Source and manifest scope sets are in parity.",
+      "message": "Every normalized literal scope found in source is declared, and every declaration was found.",
+      "remediation": "Keep this comparison in CI so later scope changes produce a reviewable diff.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/7454865?hl=en",
+      "blocking": false
+    },
+    {
+      "ruleId": "DOMAIN_SET_IN_PARITY",
+      "severity": "complete",
+      "category": "domain",
+      "title": "Declared public and redirect hosts share the authorized-domain contract.",
+      "message": "No objective host mismatch was found in the secret-free manifest.",
+      "remediation": "Confirm domain ownership in Google Search Console before submission.",
+      "evidence": [
+        "nimbric.example"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/13464321?hl=en",
+      "blocking": false
+    },
+    {
+      "ruleId": "SCOPE_EVIDENCE_TRACE_COMPLETE",
+      "severity": "complete",
+      "category": "evidence",
+      "title": "Every declared scope maps to a feature and a recording step.",
+      "message": "The manifest contains a complete technical trace from scope to feature to storyboard.",
+      "remediation": "Record the live product as described and verify the final video manually.",
+      "evidence": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ],
+      "sourceUrl": "https://support.google.com/cloud/answer/15549135?hl=en",
+      "blocking": false
+    }
+  ],
+  "storyboard": [
+    {
+      "index": 1,
+      "title": "Connect Google Calendar and open today's briefing",
+      "route": "/briefing/today",
+      "scopes": [
+        "https://www.googleapis.com/auth/calendar.readonly"
+      ]
+    }
+  ]
+}

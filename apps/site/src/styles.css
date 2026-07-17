@@ -1336,6 +1336,54 @@ svg {
   line-height: 1.6;
 }
 
+.sample-real-examples {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid var(--line-strong);
+}
+
+.sample-real-examples strong {
+  display: block;
+  margin-top: 0.55rem;
+  font-size: 1.15rem;
+}
+
+.sample-real-examples p {
+  max-width: 48rem;
+  margin: 0.45rem 0 0;
+  color: var(--slate);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.sample-real-examples > a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.sample-real-examples svg {
+  width: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+@media (max-width: 48rem) {
+  .sample-real-examples {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 .section--trust {
   padding-top: clamp(6rem, 12vw, 11rem);
   padding-bottom: clamp(6rem, 12vw, 11rem);

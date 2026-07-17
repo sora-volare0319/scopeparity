@@ -31,13 +31,13 @@ The last column is deliberate. A raw HTML fetch does not execute the app, inspec
 Create the secret-free manifest if the project does not have one:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .
 ```
 
 Record the homepage, privacy-policy URL, authorized domains, redirects, and intended app name. Then opt in to the network check:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . \
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . \
   --manifest oauth-evidence.yaml \
   --check-urls \
   --report scopeparity-homepage-check.html
@@ -60,6 +60,10 @@ These results describe observable technical surfaces. They do not judge the priv
 After the mechanical findings are resolved, open the exact submitted homepage in a signed-out browser session. Confirm that it identifies the app, explains the user-facing purpose, exposes the same privacy link, and does not require an account before those facts are visible.
 
 Keep that browser check separate from the scanner report. A deterministic report should not claim that a human-review question has been answered by an HTTP fetch.
+
+## Inspect the reproducible example
+
+Inspect the [public identity configuration before/after fixture](/examples/identity-config/) to see a duplicated privacy URL and an unlisted redirect host resolved without claiming that public-page content was reviewed.
 
 ## Official sources
 

@@ -11,6 +11,15 @@ body:
 
         Do not include an app or company name, domain, URL, OAuth client ID, exact scope, source code or file path, manifest or report value, finding text, log, screenshot, reviewer correspondence, credential, token, name, email, or other personal data. Your GitHub username and the structured answers below will be public.
   - type: dropdown
+    id: scan_target
+    attributes:
+      label: What did you scan?
+      options:
+        - My own project
+        - A ScopeParity public fixture
+    validations:
+      required: true
+  - type: dropdown
     id: completion
     attributes:
       label: Did the local scan complete?
@@ -47,6 +56,7 @@ body:
       label: Where did you find ScopeParity?
       options:
         - Exact-error guide
+        - Before/after example
         - ScopeParity home page
         - GitHub
         - Another public source
