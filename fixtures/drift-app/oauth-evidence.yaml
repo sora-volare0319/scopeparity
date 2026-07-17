@@ -1,0 +1,21 @@
+schemaVersion: 1
+app:
+  name: "Northstar Notes"
+  supportEmailDomain: "northstar.example"
+  homepageUrl: "https://northstar.example"
+  privacyPolicyUrl: "https://legal.other-example.test/privacy"
+oauth:
+  authorizedDomains:
+    - "northstar.example"
+  redirectUris:
+    - "https://preview.unlisted-example.test/auth/google/callback"
+  declaredScopes:
+    - "https://www.googleapis.com/auth/calendar.readonly"
+features: []
+evidence:
+  domainOwnershipVerified: false
+  video:
+    completed: false
+    steps: []
+checks:
+  publicUrls: false

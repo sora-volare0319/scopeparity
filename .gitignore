@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+scopeparity-report.html
+scopeparity-report.json
+scopeparity-evidence/
+/apps/site/public/guides/
+# Paid product source is maintained and released from its own private repository.
+/commercial/

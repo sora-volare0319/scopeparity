@@ -1,0 +1,53 @@
+{
+  "name": "scopeparity",
+  "version": "0.1.0",
+  "description": "Credential-free local CLI for ScopeParity",
+  "keywords": [
+    "google-oauth",
+    "oauth",
+    "scope-drift",
+    "verification",
+    "developer-tools"
+  ],
+  "homepage": "https://scopeparity.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sora-volare0319/scopeparity.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/sora-volare0319/scopeparity/issues"
+  },
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "bin": {
+    "scopeparity": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@scopeparity/core": "workspace:*",
+    "commander": "^15.0.0",
+    "@types/node": "^24.10.0",
+    "@vitest/coverage-v8": "^4.1.10",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
+  }
+}

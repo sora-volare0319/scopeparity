@@ -1,0 +1,9 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+allowBuilds:
+  # Vite and tsx use esbuild's official platform-binary installer.
+  esbuild: true
+overrides:
+  # GHSA-g7r4-m6w7-qqqr; transitive build/dev dependency only.
+  esbuild: 0.28.1

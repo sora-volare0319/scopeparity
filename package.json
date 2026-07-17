@@ -1,0 +1,21 @@
+{
+  "name": "scopeparity-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ScopeParity local Google OAuth scope-drift scanner and launch evidence compiler",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter @scopeparity/site test:e2e",
+    "test:coverage": "pnpm -r test:coverage",
+    "verify": "pnpm typecheck && pnpm test && pnpm build && pnpm test:e2e",
+    "release:cli:github": "node scripts/prepare-cli-release.mjs",
+    "dev": "pnpm --filter @scopeparity/site dev",
+    "scan:fixture": "node packages/cli/dist/index.js scan fixtures/drift-app --manifest oauth-evidence.yaml"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

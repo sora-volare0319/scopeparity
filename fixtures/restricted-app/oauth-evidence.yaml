@@ -1,0 +1,29 @@
+schemaVersion: 1
+app:
+  name: "Mailbox Archive"
+  supportEmailDomain: "mailbox.example"
+  homepageUrl: "https://mailbox.example"
+  privacyPolicyUrl: "https://mailbox.example/privacy"
+oauth:
+  authorizedDomains:
+    - "mailbox.example"
+  redirectUris:
+    - "https://app.mailbox.example/oauth/google/callback"
+  declaredScopes:
+    - "https://www.googleapis.com/auth/gmail.readonly"
+features:
+  - name: "Read mailbox messages"
+    route: "/mailbox"
+    scopes:
+      - "https://www.googleapis.com/auth/gmail.readonly"
+evidence:
+  domainOwnershipVerified: true
+  video:
+    completed: false
+    steps:
+      - title: "Read a mailbox message"
+        route: "/mailbox"
+        scopes:
+          - "https://www.googleapis.com/auth/gmail.readonly"
+checks:
+  publicUrls: false

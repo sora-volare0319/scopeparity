@@ -1,0 +1,29 @@
+schemaVersion: 1
+app:
+  name: "Northstar Notes"
+  supportEmailDomain: "northstar.example"
+  homepageUrl: "https://northstar.example"
+  privacyPolicyUrl: "https://northstar.example/privacy"
+oauth:
+  authorizedDomains:
+    - "northstar.example"
+  redirectUris:
+    - "https://app.northstar.example/auth/google/callback"
+  declaredScopes:
+    - "https://www.googleapis.com/auth/calendar.events"
+features:
+  - name: "Create a planning event"
+    route: "/planning/calendar"
+    scopes:
+      - "https://www.googleapis.com/auth/calendar.events"
+evidence:
+  domainOwnershipVerified: true
+  video:
+    completed: false
+    steps:
+      - title: "Create a planning event and show it in Google Calendar"
+        route: "/planning/calendar"
+        scopes:
+          - "https://www.googleapis.com/auth/calendar.events"
+checks:
+  publicUrls: false
