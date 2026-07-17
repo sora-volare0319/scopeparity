@@ -1,0 +1,61 @@
+name: Optional scan outcome feedback
+description: Share a structured, non-confidential outcome; the CLI sends nothing automatically.
+title: "[Scan feedback]"
+labels:
+  - scan-feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public, optional, and tied to your GitHub account. ScopeParity did not send any scan data automatically.
+
+        Do not include an app or company name, domain, URL, OAuth client ID, exact scope, source code or file path, manifest or report value, finding text, log, screenshot, reviewer correspondence, credential, token, name, email, or other personal data. Your GitHub username and the structured answers below will be public.
+  - type: dropdown
+    id: completion
+    attributes:
+      label: Did the local scan complete?
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Closest outcome
+      options:
+        - It found an objective mismatch
+        - It identified a manual check
+        - It found no objective mismatch
+        - It stopped at the restricted-scope boundary
+        - I could not complete the scan
+    validations:
+      required: true
+  - type: dropdown
+    id: next_action
+    attributes:
+      label: Was the next action clear?
+      options:
+        - "Yes"
+        - Partly
+        - "No"
+    validations:
+      required: true
+  - type: dropdown
+    id: discovery_source
+    attributes:
+      label: Where did you find ScopeParity?
+      options:
+        - Exact-error guide
+        - ScopeParity home page
+        - GitHub
+        - Another public source
+    validations:
+      required: true
+  - type: checkboxes
+    id: public_boundary
+    attributes:
+      label: Public boundary
+      options:
+        - label: I have not included project details, URLs, credentials, source, manifest values, finding text, report contents, or personal data.
+          required: true

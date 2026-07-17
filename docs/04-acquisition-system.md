@@ -27,7 +27,9 @@ Each page must contain an exact diagnostic tree, a reproducible local check, a l
 The free product must be complete enough to be trusted:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . --manifest oauth-evidence.yaml
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
+# Edit the generated secret-free manifest, then:
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . --manifest oauth-evidence.yaml
 ```
 
 It shows the scope inventory, every objective finding, source locations without source lines, an optional public-surface check, and HTML/JSON diagnostic output. The output includes a stable report ID derived locally from the ruleset and manifest, but no repository content or identifier is sent anywhere.
@@ -56,21 +58,26 @@ No fake testimonials, invented customer counts, discount countdowns, cold-call l
 
 ## Measurement contract
 
-The website may collect aggregate funnel events only after its privacy disclosure and production endpoint exist. The CLI remains telemetry-free.
+The website uses aggregate, cookie-free route analytics after disclosure. The CLI remains telemetry-free and sends nothing automatically.
 
-Required website events:
+Until live checkout exists, use only these validation signals:
 
-- `qualified_page_view` with intent-page slug;
-- `cli_command_copied`;
-- `sample_report_opened`;
-- `manifest_demo_completed`;
+- high-intent route visits from aggregate website analytics, excluding internal QA and obvious bots where the provider permits;
+- valid `scan-feedback` issues from distinct GitHub authors as a conservative lower bound on completed scans;
+- valid `workspace-interest` issues as a priced purchase-intent signal, never as a reservation or sale;
+- the completed-scan clarity rate from the structured feedback choices.
+
+The opt-in issue count cannot establish the true visit-to-scan conversion rate. Do not join public GitHub identities to anonymous website visitors.
+
+When checkout is live, the durable provider-side events are:
+
 - `checkout_started` with currency and offer;
 - `purchase_settled` from server-side payment confirmation;
 - `refund_settled`;
 - `reservation_settled`;
 - `reservation_refunded`.
 
-Revenue reporting uses payment-provider events as the source of truth. Client-side success pages never count as revenue.
+Revenue reporting uses payment-provider events as the source of truth. Client-side success pages, public interest issues, unpaid invoices, test orders, and unsettled reservations never count as revenue.
 
 ## Growth guardrails
 

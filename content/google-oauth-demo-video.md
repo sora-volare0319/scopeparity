@@ -43,13 +43,13 @@ ScopeParity can flag those gaps, but it cannot decide whether the feature justif
 For a first run, create the secret-free manifest, replace the example values, and map each requested scope to a feature and recording step:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
 ```
 
 Then generate the local report:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . \
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . \
   --manifest oauth-evidence.yaml \
   --report scopeparity-report.html
 ```

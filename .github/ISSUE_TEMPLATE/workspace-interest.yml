@@ -1,0 +1,66 @@
+name: Launch Evidence Workspace interest
+description: Share public, non-binding purchase interest without project details.
+title: "[Workspace interest]"
+labels:
+  - workspace-interest
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public and tied to your GitHub account. It records product interest only; it is not a purchase, reservation, support request, or approval assessment.
+
+        Do not include an app or company name, domain, URL, OAuth client ID, exact scope, source code or file path, manifest or report value, log, screenshot, reviewer correspondence, credential, token, name, email, or other personal data. Your GitHub username and the structured answers below will be public.
+  - type: dropdown
+    id: scanner_status
+    attributes:
+      label: Free scanner status
+      description: Select the closest answer without describing your project.
+      options:
+        - I completed a local scan
+        - I have not run it yet
+        - I could not complete it
+    validations:
+      required: true
+  - type: dropdown
+    id: launch_stage
+    attributes:
+      label: Launch stage
+      options:
+        - Preparing an initial OAuth verification
+        - Preparing a re-verification or production scope change
+        - Evaluating for a later launch
+        - Not sure whether ScopeParity applies
+    validations:
+      required: true
+  - type: dropdown
+    id: timeframe
+    attributes:
+      label: Intended timeframe
+      options:
+        - Within 7 days
+        - Within 30 days
+        - Later or uncertain
+    validations:
+      required: true
+  - type: dropdown
+    id: purchase_intent
+    attributes:
+      label: Next step at the published price
+      description: The Launch Evidence Workspace is planned at ¥59,800 / $399 for one project and 30 days of updates.
+      options:
+        - I would evaluate checkout when it opens
+        - I need to inspect a sample workspace first
+        - I am not ready to evaluate a purchase
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Public and product boundaries
+      options:
+        - label: I have not included project details, URLs, credentials, source, manifest values, report contents, or personal data.
+          required: true
+        - label: I understand this is public interest only, no payment is taken, and it does not count as a reservation or sale.
+          required: true
+        - label: My project does not use restricted Google OAuth scopes; ScopeParity does not assess restricted scopes or guarantee approval.
+          required: true

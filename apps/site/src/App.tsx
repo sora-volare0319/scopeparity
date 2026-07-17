@@ -1,6 +1,8 @@
 import { useEffect, useId, useState } from "react";
 
-const DEFAULT_CLI_PREFIX = "npx -y github:sora-volare0319/scopeparity-cli#v0.1.0";
+const DEFAULT_CLI_PREFIX = "npx -y github:sora-volare0319/scopeparity-cli#v0.1.1";
+const WORKSPACE_INTEREST_URL =
+  "https://github.com/sora-volare0319/scopeparity/issues/new?template=workspace-interest.yml";
 
 function configuredCliPrefix(value: string | undefined): string {
   const prefix = value?.trim() ?? "";
@@ -841,7 +843,13 @@ export function App() {
             {(!RESERVATION_CHECKOUT_URL || !EVIDENCE_CHECKOUT_URL) && (
               <p className="checkout-preview-note" role="status">
                 <strong>Checkout preview.</strong> The hosted Merchant of Record checkout is not connected in this
-                build. No payment is accepted or counted from this page.
+                build. No payment is accepted or counted from this page.{" "}
+                <a href={WORKSPACE_INTEREST_URL} rel="noreferrer" data-event="workspace_interest_click">
+                  Share purchase interest on GitHub
+                </a>
+                . This does not reserve a place or accept payment. The issue is public and tied to your GitHub account;
+                do not post project details, URLs, identifiers, source, manifest values, report contents,
+                correspondence, credentials, or personal data.
               </p>
             )}
             <p className="pricing-note">

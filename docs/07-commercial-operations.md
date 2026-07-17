@@ -87,3 +87,5 @@ An unset URL must render a labelled preview state, never a fake checkout. Provid
 ## External onboarding dependency
 
 Opening a live Merchant of Record store requires the seller’s identity, payout destination, and provider approval. Those cannot be fabricated or delegated to code. The site, product, sample report, and test-mode integration can be completed first; live payment acceptance becomes the first explicit external-account gate.
+
+The current Vercel Hobby deployment is for pre-payment validation only. Before enabling any checkout URL, upgrade it to a plan that permits commercial use or move the static site to a commercial-compatible host, then re-run production verification. Hosting-plan acceptance and any charge require the seller's action-time approval.

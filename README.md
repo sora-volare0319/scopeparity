@@ -11,17 +11,17 @@ ScopeParity does **not** approve apps, interpret policy or law, assess restricte
 Create the secret-free manifest once:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
 ```
 
 Review `oauth-evidence.yaml`, replace the example values with the launch values you intend to submit, then scan:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . --manifest oauth-evidence.yaml
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . --manifest oauth-evidence.yaml
 ```
 
 The current release is distributed from the versioned
-[`scopeparity-cli`](https://github.com/sora-volare0319/scopeparity-cli/tree/v0.1.0)
+[`scopeparity-cli`](https://github.com/sora-volare0319/scopeparity-cli/tree/v0.1.1)
 repository while the canonical npm package is not authenticated. The bundled
 release contains no runtime dependencies; its source and tests live here.
 

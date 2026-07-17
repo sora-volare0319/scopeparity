@@ -1,6 +1,6 @@
 {
   "name": "scopeparity",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Credential-free local CLI for ScopeParity",
   "keywords": [
     "google-oauth",

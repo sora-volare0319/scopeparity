@@ -46,6 +46,14 @@ describe("runCli", () => {
     expect(output.stdout()).toContain("without credentials");
   });
 
+  it("reports the packaged CLI version", async () => {
+    const output = memoryIo();
+
+    await expect(runCli(["--version"], output.io)).resolves.toBe(0);
+
+    expect(output.stdout()).toBe("0.1.1\n");
+  });
+
   it("initializes once and returns input-error exit code on overwrite", async () => {
     const root = await temporaryDirectory();
     const first = memoryIo();

@@ -213,6 +213,11 @@ describe("formatPrettyReport", () => {
     );
 
     expect(output).toContain("this is not an approval guarantee");
+    expect(output).toContain(
+      "https://github.com/sora-volare0319/scopeparity/issues/new?template=scan-feedback.yml",
+    );
+    expect(output).toContain("Nothing is sent automatically");
+    expect(output).toContain("tied to your GitHub account");
     expect(output).not.toContain("approved");
     expect(output).not.toContain("/work/app");
   });

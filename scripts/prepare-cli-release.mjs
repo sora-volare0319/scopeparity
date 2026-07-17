@@ -45,7 +45,9 @@ const packageJson = {
   bugs: { url: "https://github.com/sora-volare0319/scopeparity/issues" },
 };
 
-const readme = `# ScopeParity CLI release\n\nThis repository is the dependency-free, bundled distribution of the open-source ScopeParity CLI. Source, tests, fixtures, and security documentation live at https://github.com/sora-volare0319/scopeparity.\n\nRun the current GitHub distribution:\n\n\`\`\`bash\nnpx -y github:sora-volare0319/scopeparity-cli scan . --manifest oauth-evidence.yaml\n\`\`\`\n\nThe scan stays local by default and never requests Google credentials. ScopeParity finds deterministic technical inconsistencies; it does not provide legal or policy advice, assess restricted scopes, or guarantee Google approval.\n`;
+const releaseRef = `v${cliPackage.version}`;
+const releaseCommand = `npx -y github:sora-volare0319/scopeparity-cli#${releaseRef}`;
+const readme = `# ScopeParity CLI release\n\nThis repository is the dependency-free, bundled distribution of the open-source ScopeParity CLI. Source, tests, fixtures, and security documentation live at https://github.com/sora-volare0319/scopeparity. The interactive report and exact-error guides are at https://scopeparity.vercel.app/.\n\nCreate the secret-free manifest once:\n\n\`\`\`bash\n${releaseCommand} init .\n\`\`\`\n\nReview \`oauth-evidence.yaml\`, replace the example values with the launch values you intend to submit, then scan:\n\n\`\`\`bash\n${releaseCommand} scan . --manifest oauth-evidence.yaml\n\`\`\`\n\nThe scan stays local by default and never requests Google credentials. Nothing is sent automatically. ScopeParity finds deterministic technical inconsistencies; it does not provide legal or policy advice, assess restricted scopes, or guarantee Google approval.\n`;
 
 await mkdir(path.join(target, "dist"), { recursive: true });
 const bundledCli = await readFile(path.join(repositoryRoot, "packages/cli/dist/index.js"), "utf8");

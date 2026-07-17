@@ -49,13 +49,13 @@ Confirm which OAuth client created the warning. Development, staging, browser, m
 For a first run, create the secret-free manifest and replace the example values with the launch values you intend to submit:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
 ```
 
 Then run the local comparison:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . --manifest oauth-evidence.yaml
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . --manifest oauth-evidence.yaml
 ```
 
 ScopeParity reads tracked, allowed source files and compares scope strings with a secret-free manifest. It reports file paths and line numbers, never source lines, and does not ask for Google credentials.

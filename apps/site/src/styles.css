@@ -1697,6 +1697,12 @@ svg {
   color: #493814;
 }
 
+.checkout-preview-note a {
+  color: inherit;
+  font-weight: 700;
+  text-underline-offset: 0.18em;
+}
+
 .pricing-note {
   max-width: 43rem;
   margin: 1.5rem 0 0 auto;
