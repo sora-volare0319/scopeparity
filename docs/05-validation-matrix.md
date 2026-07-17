@@ -65,6 +65,19 @@ ScopeParity may be publicly distributed only when all safety tests pass and no f
 - public URL checks block loopback, RFC1918, link-local, unique-local IPv6, metadata hosts, encoded-IP forms, DNS rebinding, and unsafe redirects;
 - generated CI permissions are read-only and never use `pull_request_target`.
 
+### Revenue integrity
+
+- Polar signatures are checked against the raw body before parsing or persistence;
+- invalid signatures and inconsistent financial snapshots write zero rows;
+- `(environment, endpoint, webhook-id)` retries are deduplicated only when their body hash matches; mismatched hashes are retained as conflicts and excluded from revenue;
+- a durably stored conflict is acknowledged and alerted rather than retried until the provider disables the endpoint;
+- `order.refunded` uses the cumulative refund snapshot rather than additive event deltas;
+- refund-before-paid, repeated partial refund, and full refund sequences never inflate revenue;
+- sandbox, reservation, unknown-product, recurring, and zero-value orders are excluded;
+- JPY and USD minor units are never added directly, and missing FX fails closed;
+- raw payloads, signatures, names, email, addresses, tax IDs, and arbitrary metadata are not persisted; and
+- storage failure produces a non-2xx retryable result.
+
 ## Accuracy scorecard
 
 Track four values separately:

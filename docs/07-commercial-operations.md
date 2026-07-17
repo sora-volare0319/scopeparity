@@ -35,7 +35,8 @@ This is an operational choice, not tax or legal advice. Account review, seller i
 - One named software project.
 - Version-fixed local compiler download.
 - Scope-evidence matrix in CSV/JSON, recording runbook, local storyboard workspace, public-surface result record, read-only CI workflow, and deterministic provenance record.
-- Ruleset updates for 30 days.
+- Permanent use of the version-fixed release delivered at purchase.
+- Future releases and features are separate unless the checkout explicitly includes them.
 - No call, Google login, console access, policy writing, restricted-scope assessment, or approval guarantee.
 
 ### Drift Guard
@@ -50,7 +51,9 @@ Polar provides the checkout and versioned file-download entitlement. The product
 
 - the version-fixed paid compiler archive;
 - install and local-run instructions;
-- 30 days of updated downloads and changelogs.
+- continued use of that purchased release for the named project.
+
+Polar's one-time File Download Benefit gives existing purchasers access to files later added to the product. It does not enforce a buyer-specific 30-day entitlement. ScopeParity therefore does not promise a 30-day update window in the initial offer; doing so would require a separate entitlement service. Sources: [file downloads](https://polar.sh/docs/features/benefits/file-downloads), [benefit access](https://polar.sh/docs/features/benefits/introduction).
 
 The launch build performs no online license validation and sends no repository data. If online validation is added later, it must be disclosed and separable from both the scan and pack build.
 
@@ -62,18 +65,31 @@ Create an append-only revenue ledger from verified server-side provider events:
 
 | Field | Meaning |
 | --- | --- |
-| `provider_event_id` | deduplication key |
+| `provider_event_id` | signed `webhook-id`; deduplicated with environment and endpoint key |
 | `occurred_at` | provider timestamp |
 | `order_id` | provider order identifier |
 | `product` | reservation, evidence workspace, or drift guard |
 | `currency` | settlement currency |
-| `gross_amount` | customer charge before tax treatment |
+| `gross_amount` | Polar `net_amount`: after discounts and before tax |
 | `tax_amount` | tax handled by the provider |
 | `refunded_amount` | settled refund |
-| `net_goal_revenue_jpy` | gross less refunds, converted by a documented daily rate when needed |
+| `net_goal_revenue_jpy` | gross less cumulative tax-exclusive refunds, converted using a documented purchase-date rate when needed |
 | `acquisition_source` | first-party intent-page attribution if present |
 
 Never count a browser redirect, checkout-start event, unpaid invoice, test-mode order, tax collected, or refunded amount as goal revenue.
+
+The checked-in `@scopeparity/revenue` package implements the provider contract before a live account is connected:
+
+- validates the raw request body with the pinned official Polar SDK;
+- accepts only `order.paid` and `order.refunded` for the ledger;
+- persists an allowlisted snapshot without names, email, address, tax ID, raw body, or signature;
+- claims `(provider, environment, endpoint, webhook-id)` atomically, deduplicates only an identical body hash, and records a different hash as a fail-closed conflict;
+- acknowledges a durably quarantined conflict with `202 accepted_conflict` so provider retries cannot disable the endpoint, while requiring a safe-ID alert;
+- derives refunds from Polar's cumulative snapshot instead of adding refund events;
+- excludes sandbox, reservations, unknown products, zero-value orders, and missing FX rates from the goal; and
+- returns a retryable failure when durable storage is unavailable.
+
+`packages/revenue/sql/001_revenue_events.sql` defines the append-only Postgres table and native-currency audit view. A durable database, server endpoint, production IDs, and secrets remain deployment inputs; an ephemeral serverless filesystem is not an acceptable substitute.
 
 ## Implementation boundary
 

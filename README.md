@@ -29,6 +29,7 @@ release contains no runtime dependencies; its source and tests live here.
 
 - `packages/core` — deterministic discovery, extraction, rules, and report model
 - `packages/cli` — credential-free local command-line workflow
+- `packages/revenue` — verified Polar webhook ingestion and conservative, refund-aware revenue ledger
 - `apps/site` — product site and interactive sample report
 - `docs` — market, revenue, product, and validation decisions
 - `fixtures` — seeded mismatch scenarios used for acceptance testing

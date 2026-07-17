@@ -31,7 +31,7 @@ Public posts can be incomplete or wrong. They inform content vocabulary and fixt
 - A self-serve technical compiler can capture enough of the $495 concierge willingness to pay at $399.
 - At least 15% of qualified landing-page visitors will complete a local CLI scan.
 - At least 20% of completed scans will purchase the evidence-production workspace.
-- A 30-day update entitlement is more valuable than a one-off report alone.
+- Permanent access to a version-fixed compiler release is sufficient at the proposed price without a buyer-specific update entitlement.
 - Developers will supply a secret-free manifest rather than abandon setup.
 
 These assumptions require purchase and usage evidence. None should be presented as a market fact.

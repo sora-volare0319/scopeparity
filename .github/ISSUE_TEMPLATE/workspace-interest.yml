@@ -46,7 +46,7 @@ body:
     id: purchase_intent
     attributes:
       label: Next step at the published price
-      description: The Launch Evidence Workspace is planned at ¥59,800 / $399 for one project and 30 days of updates.
+      description: The Launch Evidence Workspace is planned at ¥59,800 / $399 for one project, with permanent use of the purchased release; future releases are separate.
       options:
         - I would evaluate checkout when it opens
         - I need to inspect a sample workspace first

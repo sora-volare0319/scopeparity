@@ -828,7 +828,7 @@ export function App() {
                 <div>
                   <span>Launch Evidence Workspace</span>
                   <strong>¥59,800 <small>/ $399</small></strong>
-                  <em>one project · 30 days of updates</em>
+                  <em>one project · permanent use of the purchased release</em>
                 </div>
                 <ul>
                   <li>Scope-evidence matrix in CSV + JSON</li>
@@ -836,6 +836,7 @@ export function App() {
                   <li>Versioned provenance record</li>
                   <li>Read-only CI workflow</li>
                   <li>Downloadable local compiler; no source upload</li>
+                  <li>Future releases are separate unless checkout says otherwise</li>
                 </ul>
                 <CheckoutCta kind="evidence" />
               </div>

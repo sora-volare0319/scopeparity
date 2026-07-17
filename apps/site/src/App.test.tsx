@@ -14,6 +14,8 @@ describe("ScopeParity marketing site", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("¥59,800", { exact: false })).toBeInTheDocument();
+    expect(screen.getByText(/permanent use of the purchased release/)).toBeInTheDocument();
+    expect(screen.getByText(/Future releases are separate/)).toBeInTheDocument();
     expect(screen.getByText("No Google credentials")).toBeInTheDocument();
     expect(screen.getByText(/Approval, verification, or a probability of passing/)).toBeInTheDocument();
     expect(screen.getByText(/This interactive report uses invented domains/)).toBeInTheDocument();

@@ -9,7 +9,7 @@ The launch product is a project-scoped evidence-production workspace, not a payw
 | Offer | Price | Included outcome |
 | --- | ---: | --- |
 | Free local scan | ¥0 | All deterministic findings, scope/source inventory, optional public-surface checks, HTML/JSON diagnostic report, no account |
-| Launch Evidence Workspace | ¥59,800 / $399 | Local pack compiler, scope-evidence matrix, recording runbook and storyboard workspace, provenance record, read-only CI workflow, one project, updates for 30 days |
+| Launch Evidence Workspace | ¥59,800 / $399 | Local pack compiler, scope-evidence matrix, recording runbook and storyboard workspace, provenance record, read-only CI workflow, one project, permanent use of the purchased release |
 
 Target: 20 Launch Evidence Workspace sales × ¥59,800 = ¥1,196,000 gross revenue. Seventeen sales cross ¥1,000,000 gross; twenty provide room for refunds and payment fees.
 
@@ -34,7 +34,7 @@ Do not target internal-only apps, hobby projects under the user cap, projects th
 2. A focused technical page explains the mechanical cause and offers one command.
 3. The free CLI returns useful findings locally before asking for payment.
 4. A sample workspace shows the execution work that the paid compiler removes after diagnosis.
-5. Self-serve checkout delivers the local workspace compiler and 30 days of versioned downloads.
+5. Self-serve checkout delivers the version-fixed local workspace compiler. The purchased release remains licensed for the named project; future releases are separate unless checkout explicitly includes them.
 6. The generated read-only workflow keeps scope drift visible when the repository changes.
 
 No cold-call motion is required. Early founder time is reserved for writing evidence-based pages, answering public technical questions without pitching, and improving the scanner from observed failures.
