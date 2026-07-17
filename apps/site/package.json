@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-guides.mjs && vite build",
+    "build": "node scripts/build-guides.mjs && vite build && vite build --ssr src/entry-server.tsx --outDir .ssr && node scripts/prerender-home.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

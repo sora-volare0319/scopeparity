@@ -54,4 +54,30 @@ describe("tracked file discovery", () => {
     expect(result.safetyFindings[0]?.message).toMatch(/never followed/u);
     await rm(target, { force: true });
   });
+
+  it("extracts bare identity scopes only from explicit OAuth context", async () => {
+    const root = await repository();
+    await writeFile(
+      path.join(root, "auth.ts"),
+      'export const googleOAuthScopes = ["openid", "email", "profile"];\n',
+      "utf8",
+    );
+    await writeFile(
+      path.join(root, "mail.ts"),
+      [
+        'const contacts = table.select("email");',
+        "// Scoped to active contacts so unrelated addresses are excluded.",
+      ].join("\n"),
+      "utf8",
+    );
+    await execFileAsync("git", ["-C", root, "add", "auth.ts", "mail.ts"]);
+
+    const result = await discoverTrackedFiles(root);
+    const scopes = await extractScopes(root, result.files);
+
+    expect(scopes.map((item) => item.scope)).toEqual(["email", "openid", "profile"]);
+    expect(scopes.flatMap((item) => item.locations).every((location) => location.path === "auth.ts")).toBe(
+      true,
+    );
+  });
 });

@@ -7,7 +7,16 @@ import type { ScopeInventoryItem, SourceLocation } from "./types.js";
 const fullScopePattern =
   /https:\/\/(?:www\.googleapis\.com\/auth\/[A-Za-z0-9._/-]+|mail\.google\.com\/?)/gu;
 const identityLiteralPattern = /["'`](openid|email|profile)["'`]/gu;
-const oauthContextPattern = /(?:google|oauth|authori[sz]|scopes?)/iu;
+const oauthContextPattern =
+  /\b(?:google|oauth2?|authorization|authorize|authorise|authorized|authorised|scope|scopes)\b/u;
+
+function hasOAuthContext(value: string): boolean {
+  const tokenized = value
+    .replace(/([a-z0-9])([A-Z])/gu, "$1 $2")
+    .replace(/[_-]+/gu, " ")
+    .toLowerCase();
+  return oauthContextPattern.test(tokenized);
+}
 
 function safeRelativePath(value: string): string {
   return value.replace(/[\u0000-\u001f\u007f-\u009f]/gu, "�");
@@ -34,7 +43,7 @@ export async function extractScopes(
       const context = lines
         .slice(Math.max(0, lineIndex - 2), Math.min(lines.length, lineIndex + 3))
         .join(" ");
-      if (!oauthContextPattern.test(context)) continue;
+      if (!hasOAuthContext(context)) continue;
       for (const match of line.matchAll(identityLiteralPattern)) {
         const scope = normalizeScope(match[1] ?? "");
         if (!scope) continue;

@@ -3,6 +3,8 @@ title: "Google OAuth 100-user cap: what to verify before resubmitting"
 description: "Qualify the cap, inventory unapproved runtime scopes, and separate technical drift from the human verification decision."
 intent: "google oauth 100 user cap sign in temporarily disabled"
 slug: "100-user-cap"
+published: "2026-07-18"
+updated: "2026-07-18"
 ---
 
 # The 100-user cap is a lifetime launch constraint, not a daily quota
@@ -40,13 +42,13 @@ The mechanical objective is parity: production code, declared scopes, the featur
 For a first run, create the secret-free manifest and replace the example values with the launch values you intend to submit:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
 ```
 
 Then run the local comparison:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . --manifest oauth-evidence.yaml
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml
 ```
 
 The free scan locates scope strings in tracked source files and compares them with a secret-free manifest. Restricted scopes trigger a boundary message because third-party security assessment and review are outside ScopeParity.

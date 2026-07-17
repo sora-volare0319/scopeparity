@@ -1,6 +1,6 @@
 import type { ScopeClassification } from "./types.js";
 
-export const RULESET_VERSION = "2026.07.18";
+export const RULESET_VERSION = "2026.07.18.2";
 export const RULESET_REVIEWED_AT = "2026-07-18";
 
 export const GOOGLE_SCOPE_CATALOG_URL =

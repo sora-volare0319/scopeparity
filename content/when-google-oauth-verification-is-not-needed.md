@@ -3,6 +3,8 @@ title: "When Google OAuth verification is not required"
 description: "A qualification guide for internal, development, personal-use, and non-sensitive-scope apps—before you buy or build verification tooling."
 intent: "does my app need google oauth verification"
 slug: "when-verification-not-needed"
+published: "2026-07-18"
+updated: "2026-07-18"
 ---
 
 # First determine whether this process applies to your app

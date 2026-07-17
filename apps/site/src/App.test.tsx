@@ -61,7 +61,7 @@ describe("ScopeParity marketing site", () => {
     await user.click(screen.getAllByRole("button", { name: "Copy create manifest command" })[0]!);
 
     expect(clipboardWrite).toHaveBeenCalledWith(
-      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .",
+      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .",
     );
     expect(screen.getAllByRole("button", { name: "Copied create manifest command" })[0]).toBeInTheDocument();
 
@@ -69,7 +69,7 @@ describe("ScopeParity marketing site", () => {
     await user.click(screen.getAllByRole("button", { name: "Copy run scan command" })[0]!);
 
     expect(clipboardWrite).toHaveBeenLastCalledWith(
-      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . --manifest oauth-evidence.yaml",
+      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml",
     );
     expect(screen.getAllByRole("button", { name: "Copied run scan command" })[0]).toBeInTheDocument();
   });

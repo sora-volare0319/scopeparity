@@ -3,6 +3,8 @@ title: "OAuth verification ‘Cancelled: Project Changes’: compare the submiss
 description: "Diagnose a cancelled Google OAuth review by separating Cloud Console changes from repository and launch-evidence drift."
 intent: "oauth verification cancelled project changes rejected frequent requests"
 slug: "cancelled-project-changes"
+published: "2026-07-18"
+updated: "2026-07-18"
 ---
 
 # “Cancelled: Project Changes” means the pending review no longer matches
@@ -40,13 +42,13 @@ ScopeParity can produce the second snapshot without Google credentials. It canno
 If the project does not yet have a manifest:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
 ```
 
 After replacing the example values with the configuration you intend to submit, generate a versioned JSON report:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . \
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . \
   --manifest oauth-evidence.yaml \
   --report scopeparity-submission-snapshot.json
 ```

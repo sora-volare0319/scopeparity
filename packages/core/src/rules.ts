@@ -11,6 +11,8 @@ const UNVERIFIED_APPS_URL = "https://support.google.com/cloud/answer/7454865?hl=
 const VERIFICATION_REQUIREMENTS_URL =
   "https://support.google.com/cloud/answer/13464321?hl=en";
 const DATA_ACCESS_URL = "https://support.google.com/cloud/answer/15549135?hl=en";
+const APP_HOMEPAGE_URL = "https://support.google.com/cloud/answer/13807376?hl=en";
+const APP_PRIVACY_URL = "https://support.google.com/cloud/answer/13806988?hl=en";
 
 type EvaluationOutput = {
   findings: Finding[];
@@ -43,6 +45,12 @@ function coversHost(domainInput: string, hostInput: string): boolean {
 
 function hostFor(url: string): string {
   return new URL(url).hostname.toLowerCase();
+}
+
+function canonicalUrl(url: string): string {
+  const parsed = new URL(url);
+  parsed.hash = "";
+  return parsed.toString();
 }
 
 function locationEvidence(scope: string, paths: Array<{ path: string; line: number }>): string[] {
@@ -190,6 +198,20 @@ export function evaluateProject(input: EvaluationInput): EvaluationOutput {
   }
 
   const privacyHost = hostFor(input.manifest.app.privacyPolicyUrl);
+  if (canonicalUrl(input.manifest.app.homepageUrl) === canonicalUrl(input.manifest.app.privacyPolicyUrl)) {
+    findings.push(
+      finding({
+        ruleId: "PRIVACY_URL_EQUALS_HOMEPAGE",
+        severity: "blocker",
+        category: "public-surface",
+        title: "The privacy-policy URL is the same as the homepage URL.",
+        message: "Google requires a dedicated privacy-policy URL that differs from the submitted homepage URL.",
+        remediation: "Publish a dedicated privacy page and record that exact URL in the launch manifest.",
+        evidence: [input.manifest.app.homepageUrl],
+        sourceUrl: APP_PRIVACY_URL,
+      }),
+    );
+  }
   const sharedAuthorizedDomain = authorizedDomains.some(
     (domain) => coversHost(domain, homepageHost) && coversHost(domain, privacyHost),
   );
@@ -321,6 +343,24 @@ export function evaluateProject(input: EvaluationInput): EvaluationOutput {
         }),
       );
     } else {
+      const intendedHomepage = canonicalUrl(input.manifest.app.homepageUrl);
+      const fetchedHomepage = input.publicSurface?.homepageFinalUrl
+        ? canonicalUrl(input.publicSurface.homepageFinalUrl)
+        : intendedHomepage;
+      if (fetchedHomepage !== intendedHomepage) {
+        findings.push(
+          finding({
+            ruleId: "HOMEPAGE_REDIRECT_CHANGED_URL",
+            severity: "blocker",
+            category: "public-surface",
+            title: "The submitted homepage redirects to a different URL.",
+            message: "The bounded public check reached a final URL that differs from the homepage recorded in the manifest.",
+            remediation: "Use a static homepage URL that does not redirect, then align the consent-screen value.",
+            evidence: [intendedHomepage, fetchedHomepage],
+            sourceUrl: APP_HOMEPAGE_URL,
+          }),
+        );
+      }
       const normalizedHtml = homepageHtml.toLocaleLowerCase("en-US");
       const privacyUrl = input.manifest.app.privacyPolicyUrl;
       const privacyPath = new URL(privacyUrl).pathname;
@@ -331,13 +371,13 @@ export function evaluateProject(input: EvaluationInput): EvaluationOutput {
         findings.push(
           finding({
             ruleId: "PRIVACY_LINK_NOT_FOUND_ON_HOMEPAGE",
-            severity: "blocker",
+            severity: "manual",
             category: "public-surface",
-            title: "The declared privacy-policy link was not found on the fetched homepage.",
-            message: "Neither the absolute privacy URL nor its path appears in the bounded HTML evidence.",
-            remediation: "Add the same privacy-policy link used in the intended consent-screen configuration.",
+            title: "The declared privacy-policy link was not found in fetched homepage HTML.",
+            message: "Neither the absolute privacy URL nor its path appears in the bounded, non-rendered HTML evidence.",
+            remediation: "Confirm the rendered page exposes the same privacy-policy link, or add it to the initial HTML.",
             evidence: [input.manifest.app.homepageUrl, privacyUrl],
-            sourceUrl: VERIFICATION_REQUIREMENTS_URL,
+            sourceUrl: APP_HOMEPAGE_URL,
           }),
         );
       }
@@ -345,13 +385,13 @@ export function evaluateProject(input: EvaluationInput): EvaluationOutput {
         findings.push(
           finding({
             ruleId: "APP_NAME_NOT_FOUND_ON_HOMEPAGE",
-            severity: "blocker",
+            severity: "manual",
             category: "public-surface",
-            title: "The declared app name was not found on the fetched homepage.",
-            message: "The exact app name does not appear in the bounded homepage HTML evidence.",
-            remediation: "Make the public homepage identify the app using the name intended for submission.",
+            title: "The declared app name was not found in fetched homepage HTML.",
+            message: "The exact app name does not appear in the bounded, non-rendered homepage HTML evidence.",
+            remediation: "Confirm the rendered page identifies the app using the submitted name, or add it to the initial HTML.",
             evidence: [input.manifest.app.name, input.manifest.app.homepageUrl],
-            sourceUrl: VERIFICATION_REQUIREMENTS_URL,
+            sourceUrl: APP_HOMEPAGE_URL,
           }),
         );
       }

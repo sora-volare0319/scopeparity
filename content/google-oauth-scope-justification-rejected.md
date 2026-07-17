@@ -3,6 +3,8 @@ title: "Google OAuth scope justification rejected: trace each scope to shipped c
 description: "Separate implemented scope need from roadmap intent, then build a source-to-feature trace before resubmitting Google OAuth verification."
 intent: "google oauth verification scope justification rejected future enhancements"
 slug: "scope-justification-rejected"
+published: "2026-07-18"
+updated: "2026-07-18"
 ---
 
 # A scope justification is evidence, not persuasive copy
@@ -38,13 +40,13 @@ Do not turn these findings into an automatic delete list. Google publishes a spe
 Create and review the secret-free manifest:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
 ```
 
 Map each declared scope to an implemented feature and recording step, then scan:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . \
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . \
   --manifest oauth-evidence.yaml \
   --report scopeparity-scope-trace.html
 ```

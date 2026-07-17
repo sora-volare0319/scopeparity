@@ -358,6 +358,20 @@ svg {
   line-height: 1.55;
 }
 
+.command-flow__next {
+  max-width: 64ch;
+  margin: 0.35rem 0 0;
+  color: var(--slate);
+  font-size: 0.66rem;
+  line-height: 1.55;
+}
+
+.command-flow__next code {
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
 .command__prompt {
   color: #d1a44f;
   font-weight: 700;

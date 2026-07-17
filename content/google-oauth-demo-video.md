@@ -3,6 +3,8 @@ title: "Google OAuth verification demo video: build a scope-by-scope storyboard"
 description: "Turn the scope set into a deterministic recording plan that covers the consent flow and the product feature using each requested scope."
 intent: "google oauth verification demo video rejected requirements"
 slug: "demo-video"
+published: "2026-07-18"
+updated: "2026-07-18"
 ---
 
 # Record evidence, not a product tour
@@ -43,13 +45,13 @@ ScopeParity can flag those gaps, but it cannot decide whether the feature justif
 For a first run, create the secret-free manifest, replace the example values, and map each requested scope to a feature and recording step:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
 ```
 
 Then generate the local report:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . \
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . \
   --manifest oauth-evidence.yaml \
   --report scopeparity-report.html
 ```

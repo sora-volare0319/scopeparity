@@ -25,7 +25,7 @@ async function temporaryDirectory(): Promise<string> {
 
 const blockedResult = {
   product: "ScopeParity",
-  rulesetVersion: "2026.07.18",
+  rulesetVersion: "2026.07.18.2",
   rulesetReviewedAt: "2026-07-18",
   reportId: "SP-TEST",
   manifestDigestSha256: "0".repeat(64),

@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from "react";
 
-const DEFAULT_CLI_PREFIX = "npx -y github:sora-volare0319/scopeparity-cli#v0.1.1";
+const DEFAULT_CLI_PREFIX = "npx -y github:sora-volare0319/scopeparity-cli#v0.1.3";
 const WORKSPACE_INTEREST_URL =
   "https://github.com/sora-volare0319/scopeparity/issues/new?template=workspace-interest.yml";
 
@@ -278,6 +278,15 @@ function Command({ placement }: { placement: "hero" | "footer" }) {
           ? "Creates a secret-free template without overwriting an existing file. Fill it with the launch values you intend to submit."
           : "Run this after reviewing oauth-evidence.yaml. The scan stays local and reads Git-tracked files only."}
       </p>
+      {step === "init" ? (
+        <p className="command-flow__next">
+          Then run: <code>{CLI_SCAN_COMMAND}</code>
+        </p>
+      ) : (
+        <p className="command-flow__next">
+          First create the manifest: <code>{CLI_INIT_COMMAND}</code>
+        </p>
+      )}
     </div>
   );
 }
@@ -606,7 +615,20 @@ export function App() {
       <div className="page" id="top">
         <AppHeader />
 
-        <main id="main-content">
+        <main
+          id="main-content"
+          itemScope
+          itemType="https://schema.org/SoftwareApplication"
+        >
+          <meta itemProp="name" content="ScopeParity" />
+          <meta itemProp="applicationCategory" content="DeveloperApplication" />
+          <meta itemProp="operatingSystem" content="macOS, Linux, Windows" />
+          <meta itemProp="softwareVersion" content="0.1.3" />
+          <meta
+            itemProp="description"
+            content="A local Google OAuth launch-evidence scanner that compares source scopes, secret-free launch values, and recording evidence."
+          />
+          <link itemProp="url" href="https://scopeparity.vercel.app/" />
           <section className="hero" aria-labelledby="hero-title">
             <div className="hero__copy">
               <div className="eyebrow">
@@ -859,53 +881,71 @@ export function App() {
             </p>
           </section>
 
-          <section className="section section--faq" id="faq" aria-labelledby="faq-title">
+          <section
+            className="section section--faq"
+            id="faq"
+            aria-labelledby="faq-title"
+            itemScope
+            itemType="https://schema.org/FAQPage"
+          >
             <div className="faq-intro">
               <span className="section-index">06 / QUESTIONS</span>
               <h2 id="faq-title">Read this before the reviewer email arrives.</h2>
             </div>
             <div className="faq-list">
-              <details>
-                <summary>Will ScopeParity get my app approved?</summary>
-                <p>
-                  No. It finds objective technical inconsistencies and compiles evidence. Google’s reviewers make the
-                  decision, and ScopeParity never estimates or guarantees that decision.
-                </p>
+              <details itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary itemProp="name">Will ScopeParity get my app approved?</summary>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p itemProp="text">
+                    No. It finds objective technical inconsistencies and compiles evidence. Google’s reviewers make the
+                    decision, and ScopeParity never estimates or guarantees that decision.
+                  </p>
+                </div>
               </details>
-              <details>
-                <summary>Do you need access to my Google Cloud project?</summary>
-                <p>
-                  No. You copy only secret-free values into a local manifest. The tool never requests a client secret,
-                  token, service-account file, or Cloud Console session.
-                </p>
+              <details itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary itemProp="name">Do you need access to my Google Cloud project?</summary>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p itemProp="text">
+                    No. You copy only secret-free values into a local manifest. The tool never requests a client secret,
+                    token, service-account file, or Cloud Console session.
+                  </p>
+                </div>
               </details>
-              <details>
-                <summary>What happens when a restricted scope is found?</summary>
-                <p>
-                  The scan stops at that boundary, identifies the scope, and points to Google’s official external
-                  assessment path. Restricted-scope assessment is outside the product.
-                </p>
+              <details itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary itemProp="name">What happens when a restricted scope is found?</summary>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p itemProp="text">
+                    The scan stops at that boundary, identifies the scope, and points to Google’s official external
+                    assessment path. Restricted-scope assessment is outside the product.
+                  </p>
+                </div>
               </details>
-              <details>
-                <summary>Does the tool write my privacy policy or scope justification?</summary>
-                <p>
-                  It does not write or judge privacy-policy content. It records your technical feature-to-scope trace
-                  and structures the factual evidence you provide; policy and legal judgments remain yours.
-                </p>
+              <details itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary itemProp="name">Does the tool write my privacy policy or scope justification?</summary>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p itemProp="text">
+                    It does not write or judge privacy-policy content. It records your technical feature-to-scope trace
+                    and structures the factual evidence you provide; policy and legal judgments remain yours.
+                  </p>
+                </div>
               </details>
-              <details>
-                <summary>What source code leaves my machine?</summary>
-                <p>
-                  None during the scan. Output contains a normalized scope, relative tracked-file path, and line number
-                  rather than source lines. The sample above is static fictional data.
-                </p>
+              <details itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary itemProp="name">What source code leaves my machine?</summary>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p itemProp="text">
+                    None during the scan. Output contains a normalized scope, relative tracked-file path, and line number
+                    rather than source lines. The sample above is static fictional data.
+                  </p>
+                </div>
               </details>
-              <details>
-                <summary>Is ScopeParity affiliated with Google?</summary>
-                <p>
-                  No. ScopeParity is an independent developer tool. Google, Google Cloud, and related marks belong to
-                  Google LLC.
-                </p>
+              <details itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <summary itemProp="name">Is ScopeParity affiliated with Google?</summary>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p itemProp="text">
+                    No. ScopeParity is an independent developer tool. Google, Google Cloud, and related marks belong to
+                    Google LLC.
+                  </p>
+                </div>
               </details>
             </div>
           </section>

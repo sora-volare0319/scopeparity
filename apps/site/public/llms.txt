@@ -1,0 +1,29 @@
+# ScopeParity
+
+> ScopeParity is a local-first developer tool that compares Google OAuth scopes found in Git-tracked source with a secret-free launch manifest, public identity surfaces, and a per-scope recording plan. It reports deterministic technical drift and never predicts or guarantees Google approval.
+
+ScopeParity is for public external apps preparing sensitive, non-restricted Google OAuth scope verification or re-verification. The CLI sends no source, manifest, report, credentials, or telemetry to ScopeParity. Restricted-scope security assessment, policy judgment, and legal advice are outside the product.
+
+## Product
+
+- [Product and interactive sample](https://scopeparity.vercel.app/): Promise, workflow, privacy boundary, sample findings, pricing, and checkout status.
+- [Machine-readable pricing](https://scopeparity.vercel.app/pricing.md): Free and intended paid offers, delivery terms, exclusions, and current sales status.
+- [Source repository](https://github.com/sora-volare0319/scopeparity): Source, security contract, fixtures, and issue-based feedback.
+- [CLI distribution](https://github.com/sora-volare0319/scopeparity-cli): Dependency-free bundled CLI release.
+
+## Exact-problem guides
+
+- [Scope justification rejected](https://scopeparity.vercel.app/guides/scope-justification-rejected/): Trace every requested scope to shipped code, a feature, and a recording step.
+- [Verification cancelled after project changes](https://scopeparity.vercel.app/guides/cancelled-project-changes/): Compare submission snapshots before resubmitting.
+- [Verified app still shows unverified](https://scopeparity.vercel.app/guides/verified-but-unverified/): Separate runtime scope drift from identity changes.
+- [100-user cap](https://scopeparity.vercel.app/guides/100-user-cap/): Qualify the cap before changing code or resubmitting.
+- [Demo video evidence](https://scopeparity.vercel.app/guides/demo-video/): Build a scope-by-scope storyboard rather than a generic product tour.
+- [Homepage verification failed](https://scopeparity.vercel.app/guides/homepage-verification-failed/): Check reachability, redirects, domains, app identity, and privacy-link evidence without judging policy text.
+- [When verification is not required](https://scopeparity.vercel.app/guides/when-verification-not-needed/): Disqualify internal, development, personal-use, and non-sensitive projects.
+
+## Operating boundary
+
+- No affiliation with Google.
+- No approval probability, compliance score, policy advice, or legal advice.
+- No restricted-scope security assessment.
+- Checkout is currently not live; no payment or reservation is accepted from the website.

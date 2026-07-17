@@ -27,9 +27,9 @@ Each page must contain an exact diagnostic tree, a reproducible local check, a l
 The free product must be complete enough to be trusted:
 
 ```bash
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 init .
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 init .
 # Edit the generated secret-free manifest, then:
-npx -y github:sora-volare0319/scopeparity-cli#v0.1.1 scan . --manifest oauth-evidence.yaml
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.3 scan . --manifest oauth-evidence.yaml
 ```
 
 It shows the scope inventory, every objective finding, source locations without source lines, an optional public-surface check, and HTML/JSON diagnostic output. The output includes a stable report ID derived locally from the ruleset and manifest, but no repository content or identifier is sent anywhere.
@@ -41,6 +41,27 @@ Every useful report naturally creates one of three shareable artifacts:
 - a sanitized sample report a developer can send to a cofounder.
 
 Sharing is optional. The tool never auto-posts.
+
+## Public issue demand radar
+
+Current public-signal validation found the strongest reachable cohort in open GitHub issues where a repository owner has already named Google OAuth verification as the final launch blocker. This is more qualified than broad founder communities because the issue usually exposes the supported language, literal scope, implementation route, public-page status, and missing evidence step.
+
+Use two narrow searches rather than a scraped lead list:
+
+```text
+"Google verification" "demo video" scope in:body is:issue is:public state:open created:>=2025-07-01
+"Google OAuth" "scope justification" in:body is:issue is:public state:open created:>=2025-07-01
+```
+
+Before drafting any reply:
+
+1. confirm the issue is still open and owner-maintained;
+2. reject restricted-scope work and basic/internal/test-only apps;
+3. reproduce one useful observation against public source using a manifest derived only from the dated public issue;
+4. label the result as source-versus-public-snapshot evidence, never as the current Cloud Console state;
+5. disclose ScopeParity maintainership and lead with the free command, not the paid product.
+
+Do not auto-comment, collect private contact data, or turn an open issue into claimed purchase interest. Prepare at most two high-confidence, technically useful drafts per week so this channel stays evidence-led rather than becoming forum spam.
 
 ## 14-day payment validation
 
