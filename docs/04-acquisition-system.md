@@ -56,6 +56,8 @@ Day 1 is the first day both the public sample workspace and a refundable reserva
 
 No fake testimonials, invented customer counts, discount countdowns, cold-call lists, or automated forum spam.
 
+After a production content change is live, submit only the canonical sitemap URLs through IndexNow. The checked-in ownership file and `pnpm submit:indexnow` validate the host boundary before posting. An HTTP 200 or 202 proves receipt, not crawling, indexing, ranking, or traffic. Google discovery continues through crawlable internal links, `robots.txt`, the sitemap, and Search Console when the seller connects an account; the deprecated Google sitemap ping endpoint is not used.
+
 ## Measurement contract
 
 The website uses aggregate, cookie-free route analytics after disclosure. The CLI remains telemetry-free and sends nothing automatically.

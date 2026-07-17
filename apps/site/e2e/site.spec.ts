@@ -67,6 +67,37 @@ test("static exact-intent guide is rendered and accessible", async ({ page }) =>
   expect(accessibility.violations).toEqual([]);
 });
 
+test("scope-justification guide keeps automation and judgment separate", async ({ page }) => {
+  await page.goto("/guides/scope-justification-rejected/");
+
+  await expect(
+    page.getByRole("heading", { level: 1, name: "A scope justification is evidence, not persuasive copy" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Build one trace for every requested scope" })).toBeVisible();
+  await expect(page.getByText("A clean trace is not an approval prediction.")).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(accessibility.violations).toEqual([]);
+});
+
+test("project-change cancellation guide states the Cloud Console boundary", async ({ page }) => {
+  await page.goto("/guides/cancelled-project-changes/");
+
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "“Cancelled: Project Changes” means the pending review no longer matches",
+    }),
+  ).toBeVisible();
+  await expect(page.getByText("ScopeParity can produce the second snapshot without Google credentials.")).toBeVisible();
+  await expect(page.getByText("Cloud Console only")).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(accessibility.violations).toEqual([]);
+});
+
 test("privacy disclosure separates website, scanner, compiler, and checkout data", async ({ page }) => {
   await page.goto("/privacy/");
 
