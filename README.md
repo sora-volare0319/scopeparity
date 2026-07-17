@@ -8,6 +8,14 @@ ScopeParity does **not** approve apps, interpret policy or law, assess restricte
 
 ## Run the public scanner
 
+Create the secret-free manifest once:
+
+```bash
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 init .
+```
+
+Review `oauth-evidence.yaml`, replace the example values with the launch values you intend to submit, then scan:
+
 ```bash
 npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . --manifest oauth-evidence.yaml
 ```

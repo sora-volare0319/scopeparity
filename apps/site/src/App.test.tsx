@@ -51,17 +51,25 @@ describe("ScopeParity marketing site", () => {
     expect(screen.getByText(/It does not decide whether the product description is sufficient/)).toBeInTheDocument();
   });
 
-  it("copies the canonical public CLI command", async () => {
+  it("copies the safe first-run command and exposes the scan command as step two", async () => {
     const user = userEvent.setup();
     const clipboardWrite = vi.spyOn(navigator.clipboard, "writeText");
     render(<App />);
 
-    await user.click(screen.getAllByRole("button", { name: "Copy command" })[0]!);
+    await user.click(screen.getAllByRole("button", { name: "Copy create manifest command" })[0]!);
 
     expect(clipboardWrite).toHaveBeenCalledWith(
+      "npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 init .",
+    );
+    expect(screen.getAllByRole("button", { name: "Copied create manifest command" })[0]).toBeInTheDocument();
+
+    await user.click(screen.getAllByRole("button", { name: "2 Run scan" })[0]!);
+    await user.click(screen.getAllByRole("button", { name: "Copy run scan command" })[0]!);
+
+    expect(clipboardWrite).toHaveBeenLastCalledWith(
       "npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . --manifest oauth-evidence.yaml",
     );
-    expect(screen.getAllByRole("button", { name: "Copied" })[0]).toBeInTheDocument();
+    expect(screen.getAllByRole("button", { name: "Copied run scan command" })[0]).toBeInTheDocument();
   });
 
   it("renders honest checkout previews when hosted checkout URLs are unset", () => {

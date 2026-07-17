@@ -37,6 +37,14 @@ The mechanical objective is parity: production code, declared scopes, the featur
 
 ## Local preflight
 
+For a first run, create the secret-free manifest and replace the example values with the launch values you intend to submit:
+
+```bash
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 init .
+```
+
+Then run the local comparison:
+
 ```bash
 npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . --manifest oauth-evidence.yaml
 ```

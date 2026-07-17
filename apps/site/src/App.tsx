@@ -9,7 +9,9 @@ function configuredCliPrefix(value: string | undefined): string {
     : DEFAULT_CLI_PREFIX;
 }
 
-const CLI_COMMAND = `${configuredCliPrefix(import.meta.env.VITE_CLI_PREFIX)} scan . --manifest oauth-evidence.yaml`;
+const CLI_PREFIX = configuredCliPrefix(import.meta.env.VITE_CLI_PREFIX);
+const CLI_INIT_COMMAND = `${CLI_PREFIX} init .`;
+const CLI_SCAN_COMMAND = `${CLI_PREFIX} scan . --manifest oauth-evidence.yaml`;
 
 function hostedCheckoutUrl(value: string | undefined): string {
   if (!value) return "";
@@ -210,7 +212,9 @@ function BrandMark() {
 }
 
 function Command({ placement }: { placement: "hero" | "footer" }) {
+  const [step, setStep] = useState<"init" | "scan">("init");
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "manual">("idle");
+  const command = step === "init" ? CLI_INIT_COMMAND : CLI_SCAN_COMMAND;
 
   useEffect(() => {
     if (copyStatus === "idle") return undefined;
@@ -218,37 +222,60 @@ function Command({ placement }: { placement: "hero" | "footer" }) {
     return () => window.clearTimeout(timer);
   }, [copyStatus]);
 
+  useEffect(() => {
+    setCopyStatus("idle");
+  }, [step]);
+
   const copyCommand = async () => {
     try {
       if (!navigator.clipboard) throw new Error("Clipboard unavailable");
-      await navigator.clipboard.writeText(CLI_COMMAND);
+      await navigator.clipboard.writeText(command);
       setCopyStatus("copied");
     } catch {
       setCopyStatus("manual");
     }
   };
 
-  const copyLabel =
-    copyStatus === "copied" ? "Copied" : copyStatus === "manual" ? "Select to copy" : "Copy command";
+  const actionLabel = step === "init" ? "create manifest" : "run scan";
+  const copyLabel = copyStatus === "copied"
+    ? `Copied ${actionLabel} command`
+    : copyStatus === "manual"
+      ? "Select the command to copy it manually"
+      : `Copy ${actionLabel} command`;
 
   return (
-    <div className={`command command--${placement}`}>
-      <span aria-hidden="true" className="command__prompt">
-        $
-      </span>
-      <code>{CLI_COMMAND}</code>
-      <button
-        type="button"
-        onClick={copyCommand}
-        aria-label={copyLabel}
-        data-event={placement === "hero" ? "hero_cli_copy" : "footer_cli_copy"}
-      >
-        <CopyIcon />
-        <span>{copyLabel}</span>
-      </button>
-      <span className="sr-only" aria-live="polite">
-        {copyStatus === "copied" ? "Command copied to clipboard." : ""}
-      </span>
+    <div className={`command-flow command-flow--${placement}`}>
+      <div className="command-flow__steps" role="group" aria-label="Local quickstart step">
+        <button type="button" aria-pressed={step === "init"} onClick={() => setStep("init")}>
+          1 Create manifest
+        </button>
+        <button type="button" aria-pressed={step === "scan"} onClick={() => setStep("scan")}>
+          2 Run scan
+        </button>
+      </div>
+      <div className={`command command--${placement}`}>
+        <span aria-hidden="true" className="command__prompt">
+          $
+        </span>
+        <code>{command}</code>
+        <button
+          type="button"
+          onClick={copyCommand}
+          aria-label={copyLabel}
+          data-event={`${placement}_${step}_copy`}
+        >
+          <CopyIcon />
+          <span>{copyLabel}</span>
+        </button>
+        <span className="sr-only" aria-live="polite">
+          {copyStatus === "copied" ? `${actionLabel} command copied to clipboard.` : ""}
+        </span>
+      </div>
+      <p className="command-flow__hint">
+        {step === "init"
+          ? "Creates a secret-free template without overwriting an existing file. Fill it with the launch values you intend to submit."
+          : "Run this after reviewing oauth-evidence.yaml. The scan stays local and reads Git-tracked files only."}
+      </p>
     </div>
   );
 }
@@ -878,7 +905,7 @@ export function App() {
             <div>
               <span className="section-index">RUN 01 / LOCAL</span>
               <h2 id="final-cta-title">Find the first mismatch before it becomes a submission thread.</h2>
-              <p>One command. No account. No credentials. Every deterministic finding included.</p>
+              <p>Two explicit steps. No account. No credentials. Every deterministic finding included.</p>
             </div>
             <Command placement="footer" />
           </section>

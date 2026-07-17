@@ -46,6 +46,14 @@ Confirm which OAuth client created the warning. Development, staging, browser, m
 
 ## Run a local scope diff
 
+For a first run, create the secret-free manifest and replace the example values with the launch values you intend to submit:
+
+```bash
+npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 init .
+```
+
+Then run the local comparison:
+
 ```bash
 npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . --manifest oauth-evidence.yaml
 ```

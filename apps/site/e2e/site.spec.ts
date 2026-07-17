@@ -20,6 +20,18 @@ test("landing page explains the boundary and keeps checkout honest", async ({ pa
   await expect(page.locator('[data-checkout-state="preview"]')).toHaveCount(2);
   await expect(page.getByText("Checkout preview.", { exact: false })).toBeVisible();
   await expect(page.getByText("ScopeParity stops where evidence becomes judgment.")).toBeVisible();
+  await expect(
+    page.getByText("npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 init .", { exact: true }).first(),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "2 Run scan" }).first().click();
+  await expect(
+    page
+      .getByText(
+        "npx -y github:sora-volare0319/scopeparity-cli#v0.1.0 scan . --manifest oauth-evidence.yaml",
+        { exact: true },
+      )
+      .first(),
+  ).toBeVisible();
 
   await page.getByRole("button", { name: "After fixes" }).click();
   await expect(page.getByLabel("Aligned fictional manifest")).toBeVisible();
