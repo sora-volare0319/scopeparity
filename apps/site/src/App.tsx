@@ -919,6 +919,7 @@ export function App() {
           <p>Technical parity before launch. Final judgment stays with the reviewer.</p>
           <nav aria-label="Footer navigation">
             <a href="/guides/">Guides</a>
+            <a href="/privacy/">Privacy</a>
             <a href="https://github.com/sora-volare0319/scopeparity" rel="noreferrer">Source</a>
             <a href="#trust">Local-first</a>
             <a href="#boundary">Boundaries</a>

@@ -62,3 +62,16 @@ test("static exact-intent guide is rendered and accessible", async ({ page }) =>
   const accessibility = await new AxeBuilder({ page }).analyze();
   expect(accessibility.violations).toEqual([]);
 });
+
+test("privacy disclosure separates website, scanner, compiler, and checkout data", async ({ page }) => {
+  await page.goto("/privacy/");
+
+  await expect(page.getByRole("heading", { level: 1, name: "Privacy, by surface." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Website analytics" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Free scanner" })).toBeVisible();
+  await expect(page.getByText("Checkout is not live", { exact: false })).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(accessibility.violations).toEqual([]);
+});
