@@ -20,6 +20,8 @@ ScopeParity is for public external apps preparing sensitive, non-restricted Goog
 - [Demo video evidence](https://scopeparity.vercel.app/guides/demo-video/): Build a scope-by-scope storyboard rather than a generic product tour.
 - [Homepage verification failed](https://scopeparity.vercel.app/guides/homepage-verification-failed/): Check reachability, redirects, domains, app identity, and privacy-link evidence without judging policy text.
 - [When verification is not required](https://scopeparity.vercel.app/guides/when-verification-not-needed/): Disqualify internal, development, personal-use, and non-sensitive projects.
+- [Scope not showing](https://scopeparity.vercel.app/guides/scope-not-showing-on-consent-screen/): Separate a missing Data Access entry from a missing runtime consent request, then compare code with the intended scope set.
+- [Add a scope to a verified app](https://scopeparity.vercel.app/guides/scope-change-reverification/): Stage a new sensitive scope, review evidence, and production code in an order that avoids requesting unapproved access.
 
 ## Reproducible examples
 

@@ -86,6 +86,8 @@ test("home and agent-readable product facts are present without client rendering
   expect(sitemap).toContain("https://scopeparity.vercel.app/pricing.md");
   expect(sitemap).toContain("https://scopeparity.vercel.app/examples/");
   expect(sitemap).toContain("https://scopeparity.vercel.app/examples/scope-drift/");
+  expect(sitemap).toContain("https://scopeparity.vercel.app/guides/scope-not-showing-on-consent-screen/");
+  expect(sitemap).toContain("https://scopeparity.vercel.app/guides/scope-change-reverification/");
 });
 
 test("public example hub and case remain navigable, precise, and accessible", async ({ page }) => {
@@ -292,6 +294,52 @@ test("homepage-failure guide distinguishes fetched evidence from browser judgmen
   await expect(page.getByText("A raw HTML fetch does not execute the app", { exact: false })).toBeVisible();
   await expect(page.getByText("HOMEPAGE_REDIRECT_CHANGED_URL", { exact: true })).toBeVisible();
   await expect(page.getByText("manual confirmation, not proof", { exact: false })).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(accessibility.violations).toEqual([]);
+});
+
+test("scope-not-showing guide separates Console, runtime, and token evidence", async ({ page }) => {
+  await page.goto("/guides/scope-not-showing-on-consent-screen/");
+
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "Google OAuth scope not showing: check the request, API, and Data Access",
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "If the scope is absent from Data Access" })).toBeVisible();
+  await expect(page.getByText("The Cloud Console does not add a scope to an authorization request.")).toBeVisible();
+  await expect(page.getByRole("link", { name: "scope-set drift before/after fixture" })).toHaveAttribute(
+    "href",
+    "/examples/scope-drift/",
+  );
+  if ((page.viewportSize()?.width ?? 0) <= 800) {
+    const headingBox = await page.getByRole("heading", { level: 1 }).boundingBox();
+    const toolBox = await page.locator('aside[aria-label="Run ScopeParity"]').boundingBox();
+    expect(headingBox).not.toBeNull();
+    expect(toolBox).not.toBeNull();
+    expect(headingBox!.y).toBeLessThan(toolBox!.y);
+  }
+  await expectNoHorizontalOverflow(page);
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(accessibility.violations).toEqual([]);
+});
+
+test("scope-change guide gives an explicit review and release sequence", async ({ page }) => {
+  await page.goto("/guides/scope-change-reverification/");
+
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "Add a Google OAuth scope to a verified app: safe re-verification order",
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Stage a new scope without breaking the verified production flow" })).toBeVisible();
+  await expect(page.getByText("Submit and wait for the scope to be approved.", { exact: false })).toBeVisible();
+  await expect(page.getByText("operational inference", { exact: false })).toBeVisible();
   await expectNoHorizontalOverflow(page);
 
   const accessibility = await new AxeBuilder({ page }).analyze();
