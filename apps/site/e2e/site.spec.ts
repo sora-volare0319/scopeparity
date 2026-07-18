@@ -32,6 +32,11 @@ test("landing page explains the boundary and keeps checkout honest", async ({ pa
   await expect(
     page.getByText("npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .", { exact: true }).first(),
   ).toBeVisible();
+  await expect(page.getByText("Already use GitHub CLI?", { exact: false })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Install the free extension" })).toHaveAttribute(
+    "href",
+    "https://github.com/sora-volare0319/gh-scopeparity",
+  );
   await page.getByRole("button", { name: "2 Run scan" }).first().click();
   await expect(
     page
@@ -116,6 +121,8 @@ test("home and agent-readable product facts are present without client rendering
   expect(home).not.toContain('<div id="root"></div>');
   expect(home).toContain('<h1 id="hero-title">See the technical story Google will compare, before you submit it.</h1>');
   expect(home).toContain("scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml");
+  expect(home).toContain("https://github.com/sora-volare0319/gh-scopeparity");
+  expect(home).toContain("Install the free extension");
   expect(home).toContain('itemType="https://schema.org/SoftwareApplication"');
   expect(home).toContain('itemType="https://schema.org/FAQPage"');
 

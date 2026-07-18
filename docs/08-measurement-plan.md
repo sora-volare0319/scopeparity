@@ -20,6 +20,7 @@ Vercel Web Analytics provides aggregate route and referrer measurement.
 | `header_cli_anchor` | Header local-run link clicked | Early free-tool intent | Keep or remove persistent header CTA |
 | `hero_init_copy` | Hero initialize command copied successfully | Free activation begins | Diagnose hero-to-command friction |
 | `hero_scan_copy` | Hero scan command copied successfully | Stronger free activation intent | Compare manifest setup versus scan intent |
+| `hero_gh_extension_click` | GitHub CLI extension link clicked from the hero quickstart | Alternative-install exploration | Keep the extension visible only if the GitHub CLI path is used |
 | `footer_init_copy` | Footer initialize command copied successfully | Late-page activation | Compare proof-led versus immediate activation |
 | `footer_scan_copy` | Footer scan command copied successfully | Late-page stronger activation | Compare proof-led versus immediate activation |
 | `hero_sample_report_click` | Hero sample-report link clicked | Proof sought before activation | Prioritize report proof versus more copy |

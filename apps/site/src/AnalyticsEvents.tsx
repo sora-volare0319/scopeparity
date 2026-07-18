@@ -5,6 +5,7 @@ const ANALYTICS_EVENT_NAMES = [
   "header_cli_anchor",
   "hero_init_copy",
   "hero_scan_copy",
+  "hero_gh_extension_click",
   "footer_init_copy",
   "footer_scan_copy",
   "hero_sample_report_click",

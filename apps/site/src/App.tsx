@@ -287,6 +287,18 @@ function Command({ placement }: { placement: "hero" | "footer" }) {
           First create the manifest: <code>{CLI_INIT_COMMAND}</code>
         </p>
       )}
+      {placement === "hero" ? (
+        <p className="command-flow__next command-flow__alternative">
+          Already use GitHub CLI?{" "}
+          <a
+            href="https://github.com/sora-volare0319/gh-scopeparity"
+            data-event="hero_gh_extension_click"
+          >
+            Install the free extension
+          </a>
+          .
+        </p>
+      ) : null}
     </div>
   );
 }
