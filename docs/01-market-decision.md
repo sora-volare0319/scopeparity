@@ -76,6 +76,6 @@ Within 14 days of a production purchase path receiving qualified traffic:
 
 - at least 100 high-intent visits;
 - at least 10 completed local scans;
-- at least 3 refundable paid reservations of ¥19,800 or more, or a 3% full-price purchase rate.
+- at least 3 settled full-price purchases, or a 3% full-price purchase rate when the cohort is large enough to evaluate.
 
 Email signups and compliments do not count. If the paid gate fails, stop this product rather than expanding features to rescue the idea.

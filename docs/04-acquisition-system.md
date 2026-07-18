@@ -65,7 +65,7 @@ Do not auto-comment, collect private contact data, or turn an open issue into cl
 
 ## 14-day payment validation
 
-Day 1 is the first day both the public sample workspace and a refundable reservation checkout are live. The checkout must display one absolute refund date and state that the reservation is automatically refunded if delivery has not occurred by that date.
+Day 1 is the first day both the public sample workspace and the full-price, commercially hosted checkout are live. The checkout must deliver the version-fixed buyer archive automatically and state the one-project boundary before payment.
 
 | Days | Work | Evidence expected |
 | --- | --- | --- |
@@ -73,7 +73,7 @@ Day 1 is the first day both the public sample workspace and a refundable reserva
 | 3–5 | Answer existing public questions where the scanner genuinely reproduces the issue; submit CLI to relevant package directories | Qualified referral sessions, not impressions |
 | 6–8 | Publish three sanitized failure fixtures and their before/after reports | Scan completions and issue feedback |
 | 9–11 | Improve the largest scan-completion drop and publish two additional exact-intent pages | Better visit-to-scan rate |
-| 12–14 | Keep only sources producing completed scans; offer the same refundable reservation to every qualified visitor | Three paid reservations or stop |
+| 12–14 | Keep only sources producing completed scans; send every qualified visitor to the same full-price self-serve offer | Three settled purchases or stop |
 
 No fake testimonials, invented customer counts, discount countdowns, cold-call lists, or automated forum spam.
 
@@ -96,11 +96,9 @@ When checkout is live, the durable provider-side events are:
 
 - `checkout_started` with currency and offer;
 - `purchase_settled` from server-side payment confirmation;
-- `refund_settled`;
-- `reservation_settled`;
-- `reservation_refunded`.
+- `refund_settled`.
 
-Revenue reporting uses payment-provider events as the source of truth. Client-side success pages, public interest issues, unpaid invoices, test orders, and unsettled reservations never count as revenue.
+Revenue reporting uses payment-provider events as the source of truth. Client-side success pages, public interest issues, unpaid invoices, and test orders never count as revenue.
 
 ## Growth guardrails
 

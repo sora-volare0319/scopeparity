@@ -36,4 +36,4 @@ ScopeParity is for public external apps preparing sensitive, non-restricted Goog
 - No affiliation with Google.
 - No approval probability, compliance score, policy advice, or legal advice.
 - No restricted-scope security assessment.
-- Checkout is currently not live; no payment or reservation is accepted from the website.
+- Checkout is currently not live; no payment is accepted from the website.

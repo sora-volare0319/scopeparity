@@ -1,9 +1,20 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { track } from "@vercel/analytics/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { AnalyticsEvents } from "./AnalyticsEvents";
 import { App } from "./App";
 
+vi.mock("@vercel/analytics/react", () => ({
+  track: vi.fn(),
+}));
+
 describe("ScopeParity marketing site", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+    vi.mocked(track).mockClear();
+  });
+
   it("states the technical promise, price, trust boundary, and no-go boundary", () => {
     render(<App />);
 
@@ -14,6 +25,7 @@ describe("ScopeParity marketing site", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText("¥59,800", { exact: false })).toBeInTheDocument();
+    expect(screen.queryByText("Founding validation reservation")).not.toBeInTheDocument();
     expect(screen.getByText(/permanent use of the purchased release/)).toBeInTheDocument();
     expect(screen.getByText(/Future releases are separate/)).toBeInTheDocument();
     expect(screen.getByText("No Google credentials")).toBeInTheDocument();
@@ -68,6 +80,7 @@ describe("ScopeParity marketing site", () => {
       "npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .",
     );
     expect(screen.getAllByRole("button", { name: "Copied create manifest command" })[0]).toBeInTheDocument();
+    expect(track).toHaveBeenCalledWith("hero_init_copy");
 
     await user.click(screen.getAllByRole("button", { name: "2 Run scan" })[0]!);
     await user.click(screen.getAllByRole("button", { name: "Copy run scan command" })[0]!);
@@ -76,25 +89,43 @@ describe("ScopeParity marketing site", () => {
       "npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml",
     );
     expect(screen.getAllByRole("button", { name: "Copied run scan command" })[0]).toBeInTheDocument();
+    expect(track).toHaveBeenLastCalledWith("hero_scan_copy");
   });
 
-  it("renders honest checkout previews when hosted checkout URLs are unset", () => {
+  it("does not count a clipboard failure as a completed activation", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(navigator.clipboard, "writeText").mockRejectedValueOnce(new Error("Clipboard unavailable"));
     render(<App />);
 
-    const previews = screen.getAllByRole("link", { name: /checkout preview; payments are not live/i });
-    expect(previews).toHaveLength(2);
-    for (const preview of previews) {
-      expect(preview).toHaveAttribute("href", "#pricing");
-      expect(preview).toHaveAttribute("data-checkout-state", "preview");
-    }
+    await user.click(screen.getAllByRole("button", { name: "Copy create manifest command" })[0]!);
 
-    expect(screen.getByRole("status")).toHaveTextContent("No payment is accepted or counted from this page.");
+    expect(screen.getAllByRole("button", { name: "Select the command to copy it manually" })[0]).toBeInTheDocument();
+    expect(track).not.toHaveBeenCalled();
+  });
+
+  it("renders an honest single checkout preview without emitting a purchase event", async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <App />
+        <AnalyticsEvents />
+      </>,
+    );
+
+    const preview = screen.getByRole("link", { name: /checkout preview; payments are not live/i });
+    expect(preview).toHaveAttribute("href", "#pricing");
+    expect(preview).toHaveAttribute("data-checkout-state", "preview");
+    expect(preview).not.toHaveAttribute("data-event");
+    await user.click(preview);
+    expect(track).not.toHaveBeenCalled();
+
+    expect(screen.getByRole("status")).toHaveTextContent("No payment is accepted or counted for this product.");
     const interestLink = screen.getByRole("link", { name: "Share purchase interest on GitHub" });
     expect(interestLink).toHaveAttribute(
       "href",
       "https://github.com/sora-volare0319/scopeparity/issues/new?template=workspace-interest.yml",
     );
-    expect(screen.getByRole("status")).toHaveTextContent("This does not reserve a place or accept payment");
+    expect(screen.getByRole("status")).toHaveTextContent("This does not accept payment or create an order");
     expect(screen.getByRole("status")).toHaveTextContent("tied to your GitHub account");
   });
 });

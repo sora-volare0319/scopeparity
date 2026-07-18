@@ -26,8 +26,8 @@ test("landing page explains the boundary and keeps checkout honest", async ({ pa
       name: "See the technical story Google will compare, before you submit it.",
     }),
   ).toBeVisible();
-  await expect(page.locator('[data-checkout-state="preview"]')).toHaveCount(2);
-  await expect(page.getByText("Checkout preview.", { exact: false })).toBeVisible();
+  await expect(page.locator('[data-checkout-state="preview"]')).toHaveCount(1);
+  await expect(page.getByText("Evidence checkout preview.", { exact: false })).toBeVisible();
   await expect(page.getByText("ScopeParity stops where evidence becomes judgment.")).toBeVisible();
   await expect(
     page.getByText("npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 init .", { exact: true }).first(),
@@ -60,6 +60,55 @@ test("landing page explains the boundary and keeps checkout honest", async ({ pa
   expect(hydrationErrors).toEqual([]);
 });
 
+test("conversion events distinguish completed copy from checkout preview", async ({ page, context }) => {
+  await page.addInitScript(() => {
+    type TestWindow = Window & {
+      va?: (mode: string, payload?: unknown) => void;
+      __scopeParityEvents?: Array<{ name: string; keys: string[] }>;
+    };
+    const testWindow = window as TestWindow;
+    testWindow.__scopeParityEvents = [];
+    testWindow.va = (mode, payload) => {
+      if (mode !== "event" || !payload || typeof payload !== "object" || !("name" in payload)) return;
+      const record = payload as { name: unknown; data?: unknown };
+      if (typeof record.name !== "string") return;
+      testWindow.__scopeParityEvents?.push({
+        name: record.name,
+        keys: record.data && typeof record.data === "object" ? Object.keys(record.data) : [],
+      });
+    };
+  });
+
+  await page.goto("/");
+  await context.grantPermissions(["clipboard-read", "clipboard-write"], {
+    origin: new URL(page.url()).origin,
+  });
+  await page.locator('[data-event="header_cli_anchor"]').click();
+  await page.locator('[data-checkout-state="preview"]').click();
+  await page.getByRole("button", { name: "Copy create manifest command" }).first().click();
+
+  await expect
+    .poll(
+      () =>
+        page.evaluate(
+          () =>
+            (window as Window & { __scopeParityEvents?: Array<{ name: string; keys: string[] }> })
+              .__scopeParityEvents?.length ?? 0,
+        ),
+      { timeout: 5_000 },
+    )
+    .toBe(2);
+
+  const events = await page.evaluate(() => {
+    return (window as Window & { __scopeParityEvents?: Array<{ name: string; keys: string[] }> })
+      .__scopeParityEvents ?? [];
+  });
+  expect(events).toEqual([
+    { name: "header_cli_anchor", keys: [] },
+    { name: "hero_init_copy", keys: [] },
+  ]);
+});
+
 test("home and agent-readable product facts are present without client rendering", async ({ request }) => {
   const homeResponse = await request.get("/");
   expect(homeResponse.ok()).toBe(true);
@@ -75,6 +124,7 @@ test("home and agent-readable product facts are present without client rendering
   const pricing = await pricingResponse.text();
   expect(pricing).toContain("Sales status: checkout is not live.");
   expect(pricing).toContain("scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml");
+  expect(pricing).not.toContain("Founding validation reservation");
 
   const llmsResponse = await request.get("/llms.txt");
   expect(llmsResponse.ok()).toBe(true);

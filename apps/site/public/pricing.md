@@ -2,7 +2,7 @@
 
 Last updated: 2026-07-18
 
-Sales status: checkout is not live. ScopeParity is not currently accepting payment, reservations, or purchaser data. The prices below describe the intended self-serve offers and do not create a purchase or reservation.
+Sales status: checkout is not live. ScopeParity is not currently accepting payment or purchaser data. The price below describes the intended self-serve offer and does not create an order.
 
 ## Free local scan
 
@@ -24,22 +24,16 @@ After filling in the generated secret-free manifest, run the local scan:
 npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml
 ```
 
-## Founding validation reservation
-
-- Intended price: ¥19,800
-- Current availability: Not accepting payment
-- Intended terms: Credited toward one Launch Evidence Workspace; a fixed automatic-refund date must be shown by the hosted checkout before payment
-- Eligibility: Public external apps using sensitive, non-restricted Google OAuth scopes
-- Revenue treatment: A reservation is not counted toward ScopeParity's ¥1,000,000 settled-revenue goal
-
 ## Launch Evidence Workspace
 
 - Intended price: ¥59,800 or US$399, one-time
 - Current availability: Not accepting payment
 - License scope: One named project; permanent use of the purchased release
+- Prepared release: v0.1.3 (`scopeparity-launch-evidence-workspace-0.1.3.tgz`)
+- Prepared SHA-256: `afc928b2c8c76543fe12654b7590160106fa676f791a191070930e0a2b8e0d60`
 - Includes: Local evidence compiler, scope-evidence matrix in CSV and JSON, recording runbook, local storyboard workspace, provenance record, and read-only CI workflow
 - Updates: Future releases are separate unless a hosted checkout explicitly says otherwise
-- Delivery: Version-fixed downloadable package through a hosted Merchant of Record after checkout is enabled
+- Delivery: Version-fixed package through Polar File Downloads after checkout is enabled
 
 ## Not included
 

@@ -11,7 +11,7 @@ The current implementation target is **Polar Starter**:
 - hosted checkout links;
 - Merchant of Record for global tax handling;
 - one-time digital products;
-- automated license-key and file-download benefits;
+- signed file-download benefits;
 - no monthly fee at validation volume;
 - published Starter fee of 5% + $0.50 per transaction as of 2026-07-18.
 
@@ -19,15 +19,7 @@ Sources: [Polar pricing](https://polar.sh/resources/pricing), [Merchant of Recor
 
 This is an operational choice, not tax or legal advice. Account review, seller identity, bank payout details, and the provider’s current country support must be verified in the actual account before accepting payment.
 
-## Products
-
-### Validation reservation
-
-- Price: ¥19,800 equivalent, charged once.
-- The hosted checkout shows an absolute refund date, not a rolling or ambiguous “14-day window.”
-- Automatically refunded if the Launch Evidence Workspace is not delivered by that date.
-- Converts to a ¥19,800 credit against the Launch Evidence Workspace only when the buyer explicitly completes that purchase.
-- No claim that the app will be approved.
+## Launch product
 
 ### Launch Evidence Workspace
 
@@ -39,11 +31,7 @@ This is an operational choice, not tax or legal advice. Account review, seller i
 - Future releases and features are separate unless the checkout explicitly includes them.
 - No call, Google login, console access, policy writing, restricted-scope assessment, or approval guarantee.
 
-### Drift Guard
-
-- Price: ¥9,800 / $69 monthly after initial validation.
-- CI ruleset updates and refreshed evidence output.
-- Not required to reach the initial ¥1,000,000 goal.
+The initial checkout has one paid offer. A lower-priced reservation was removed because it adds refund dates, credit accounting, and a second conversion decision without improving the self-serve deliverable.
 
 ## Delivery design
 
@@ -52,6 +40,10 @@ Polar provides the checkout and versioned file-download entitlement. The product
 - the version-fixed paid compiler archive;
 - install and local-run instructions;
 - continued use of that purchased release for the named project.
+
+The prepared buyer release is `v0.1.3`. Its archive is
+`scopeparity-launch-evidence-workspace-0.1.3.tgz` with SHA-256
+`afc928b2c8c76543fe12654b7590160106fa676f791a191070930e0a2b8e0d60`.
 
 Polar's one-time File Download Benefit gives existing purchasers access to files later added to the product. It does not enforce a buyer-specific 30-day entitlement. ScopeParity therefore does not promise a 30-day update window in the initial offer; doing so would require a separate entitlement service. Sources: [file downloads](https://polar.sh/docs/features/benefits/file-downloads), [benefit access](https://polar.sh/docs/features/benefits/introduction).
 
@@ -68,7 +60,7 @@ Create an append-only revenue ledger from verified server-side provider events:
 | `provider_event_id` | signed `webhook-id`; deduplicated with environment and endpoint key |
 | `occurred_at` | provider timestamp |
 | `order_id` | provider order identifier |
-| `product` | reservation, evidence workspace, or drift guard |
+| `product` | evidence workspace |
 | `currency` | settlement currency |
 | `gross_amount` | Polar `net_amount`: after discounts and before tax |
 | `tax_amount` | tax handled by the provider |
@@ -95,7 +87,6 @@ The checked-in `@scopeparity/revenue` package implements the provider contract b
 
 The site reads its purchase destinations from environment variables:
 
-- `VITE_RESERVATION_CHECKOUT_URL`
 - `VITE_EVIDENCE_CHECKOUT_URL`
 
 An unset URL must render a labelled preview state, never a fake checkout. Provider credentials and webhook secrets are server-only and must not appear in Vite environment variables.
