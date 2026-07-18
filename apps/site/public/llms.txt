@@ -9,7 +9,7 @@ ScopeParity is for public external apps preparing sensitive, non-restricted Goog
 - [Product and interactive sample](https://scopeparity.vercel.app/): Promise, workflow, privacy boundary, sample findings, pricing, and checkout status.
 - [Machine-readable pricing](https://scopeparity.vercel.app/pricing.md): Free and intended paid offers, delivery terms, exclusions, and current sales status.
 - [Source repository](https://github.com/sora-volare0319/scopeparity): Source, security contract, fixtures, and issue-based feedback.
-- [CLI distribution](https://github.com/sora-volare0319/scopeparity-cli): Dependency-free bundled CLI release.
+- [CLI and GitHub Action](https://github.com/sora-volare0319/scopeparity-cli): Dependency-free local CLI plus a pull-request parity guard released as `v1.0.0`.
 
 ## Exact-problem guides
 
@@ -22,6 +22,7 @@ ScopeParity is for public external apps preparing sensitive, non-restricted Goog
 - [When verification is not required](https://scopeparity.vercel.app/guides/when-verification-not-needed/): Disqualify internal, development, personal-use, and non-sensitive projects.
 - [Scope not showing](https://scopeparity.vercel.app/guides/scope-not-showing-on-consent-screen/): Separate a missing Data Access entry from a missing runtime consent request, then compare code with the intended scope set.
 - [Add a scope to a verified app](https://scopeparity.vercel.app/guides/scope-change-reverification/): Stage a new sensitive scope, review evidence, and production code in an order that avoids requesting unapproved access.
+- [Official IDE scope lint vs. launch evidence parity](https://scopeparity.vercel.app/guides/google-workspace-ide-scope-lint-vs-scopeparity/): Use Google's code-time scope guidance and ScopeParity's cross-surface consistency check for their separate jobs.
 
 ## Reproducible examples
 
