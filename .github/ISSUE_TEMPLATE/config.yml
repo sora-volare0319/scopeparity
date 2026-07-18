@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/sora-volare0319/scopeparity/security/advisories/new
+    about: Do not disclose a suspected vulnerability in a public issue.
+  - name: Share an optional scan outcome
+    url: https://github.com/sora-volare0319/scopeparity/issues/new?template=scan-feedback.yml
+    about: Use the existing structured form for non-confidential scan feedback.
+  - name: Share Launch Evidence Workspace interest
+    url: https://github.com/sora-volare0319/scopeparity/issues/new?template=workspace-interest.yml
+    about: Use the existing structured form for public, non-binding product interest.

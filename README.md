@@ -1,10 +1,12 @@
 # ScopeParity
 
-ScopeParity is a local-first Google OAuth launch-evidence compiler and CI parity guard. It compares scopes requested by tracked source files with a secret-free submission manifest, checks objective URL/domain consistency, and builds a traceable report plus video storyboard.
+**Catch Google OAuth scope drift before verification or re-verification.**
 
-ScopeParity does **not** approve apps, interpret policy or law, assess restricted scopes, or require Google credentials.
+ScopeParity compares scopes requested by Git-tracked source files with the secret-free scope set you intend to submit. It flags exact code-to-manifest drift, checks objective URL/domain consistency, and builds a traceable local report plus video storyboard.
 
-[Open the interactive report](https://scopeparity.vercel.app/) · [Read the exact-error guides](https://scopeparity.vercel.app/guides/)
+Use it when preparing sensitive-scope Google OAuth verification, re-verification, or a production scope change. ScopeParity does **not** approve apps, interpret policy or law, assess restricted scopes, or require Google credentials.
+
+**Live proof:** [Open the interactive report](https://scopeparity.vercel.app/) · [Reproduce the scope-drift before/after example](https://scopeparity.vercel.app/examples/scope-drift/) · [Use the released CLI and GitHub Action](https://github.com/sora-volare0319/scopeparity-cli/releases/tag/v1.0.0)
 
 ## Run the public scanner
 

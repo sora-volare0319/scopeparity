@@ -1,0 +1,74 @@
+name: Reproducible CLI or Action bug
+description: Report a ScopeParity CLI or GitHub Action defect with a public, synthetic reproduction.
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Reproduce the problem with a ScopeParity public fixture or minimal synthetic values only.
+
+        Never include credentials, tokens, OAuth client IDs, real domains or URLs, private source code, private manifest or report contents, reviewer correspondence, personal data, or identifying logs and screenshots.
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Affected surface
+      options:
+        - CLI
+        - GitHub Action
+        - Both CLI and GitHub Action
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Use the exact CLI tag, Action tag, or commit SHA.
+      placeholder: v0.1.4 or v1.0.0
+    validations:
+      required: true
+  - type: input
+    id: rule_id
+    attributes:
+      label: Rule ID
+      description: Copy the rule ID only. Enter `not-applicable` if the failure occurs before a rule is emitted.
+      placeholder: SP-SCOPE-001
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal synthetic reproduction
+      description: Give numbered steps, the public fixture path or synthetic inputs, and the exact command or Action configuration needed to reproduce the defect.
+      placeholder: |
+        1. Check out fixtures/...
+        2. Run `...`
+        3. Observe `...`
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: State the deterministic result you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: State the sanitized result you observed without pasting private reports, source, logs, or screenshots.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public_boundary
+    attributes:
+      label: Public-data boundary
+      options:
+        - label: I included no credentials, tokens, OAuth client IDs, secrets, or personal data.
+          required: true
+        - label: I used only synthetic identities and reserved example domains, not real domains, URLs, app names, or company names.
+          required: true
+        - label: I included no private source, manifest or report contents, reviewer correspondence, or identifying logs or screenshots.
+          required: true
