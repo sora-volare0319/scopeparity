@@ -74,6 +74,6 @@ These are hypotheses, not forecasts. Instrument actual visits, command-copy even
 
 1. **Technical proof:** fixture accuracy and secret-boundary tests pass.
 2. **Message proof:** 100 qualified visits produce 10 scans.
-3. **Payment proof:** three refundable reservations at ¥19,800+ within 14 days.
-4. **Full-price proof:** five settled ¥59,800 purchases with less than 10% refunds.
+3. **Payment proof:** three settled ¥59,800 purchases within 14 days of a live commercial checkout.
+4. **Retention proof:** five settled purchases with less than 10% refunds.
 5. **Scale:** expand exact-intent content and integrations only after stage 4.

@@ -1,4 +1,5 @@
 import { useEffect, useId, useState } from "react";
+import { trackEvent } from "./AnalyticsEvents";
 
 const DEFAULT_CLI_PREFIX = "npx -y github:sora-volare0319/scopeparity-cli#v0.1.4";
 const WORKSPACE_INTEREST_URL =
@@ -27,7 +28,6 @@ function hostedCheckoutUrl(value: string | undefined): string {
 }
 
 const LEGACY_CHECKOUT_URL = hostedCheckoutUrl(import.meta.env.VITE_CHECKOUT_URL);
-const RESERVATION_CHECKOUT_URL = hostedCheckoutUrl(import.meta.env.VITE_RESERVATION_CHECKOUT_URL);
 const EVIDENCE_CHECKOUT_URL =
   hostedCheckoutUrl(import.meta.env.VITE_EVIDENCE_CHECKOUT_URL) || LEGACY_CHECKOUT_URL;
 
@@ -183,22 +183,22 @@ function CopyIcon() {
   );
 }
 
-function CheckoutCta({ kind }: { kind: "reservation" | "evidence" }) {
-  const url = kind === "reservation" ? RESERVATION_CHECKOUT_URL : EVIDENCE_CHECKOUT_URL;
-  const isConfigured = url.length > 0;
-  const productLabel = kind === "reservation" ? "Founding validation reservation" : "Launch Evidence Workspace";
+function CheckoutCta() {
+  const isConfigured = EVIDENCE_CHECKOUT_URL.length > 0;
 
   return (
     <a
-      className={kind === "evidence" ? "pricing-row__cta" : "pricing-row__link"}
-      href={isConfigured ? url : "#pricing"}
-      data-event={kind === "reservation" ? "reservation_checkout_click" : "evidence_checkout_click"}
+      className="pricing-row__cta"
+      href={isConfigured ? EVIDENCE_CHECKOUT_URL : "#pricing"}
+      data-event={isConfigured ? "evidence_checkout_click" : undefined}
       data-checkout-state={isConfigured ? "configured" : "preview"}
       aria-label={
-        isConfigured ? `Open hosted checkout for ${productLabel}` : `${productLabel} checkout preview; payments are not live`
+        isConfigured
+          ? "Open hosted checkout for Launch Evidence Workspace"
+          : "Launch Evidence Workspace checkout preview; payments are not live"
       }
     >
-      {isConfigured ? (kind === "reservation" ? "Reserve a validation place" : "Get the evidence workspace") : "Checkout preview"}
+      {isConfigured ? "Get the evidence workspace" : "Checkout preview"}
       <ArrowIcon />
     </a>
   );
@@ -233,6 +233,7 @@ function Command({ placement }: { placement: "hero" | "footer" }) {
       if (!navigator.clipboard) throw new Error("Clipboard unavailable");
       await navigator.clipboard.writeText(command);
       setCopyStatus("copied");
+      trackEvent(`${placement}_${step}_copy`);
     } catch {
       setCopyStatus("manual");
     }
@@ -264,7 +265,6 @@ function Command({ placement }: { placement: "hero" | "footer" }) {
           type="button"
           onClick={copyCommand}
           aria-label={copyLabel}
-          data-event={`${placement}_${step}_copy`}
         >
           <CopyIcon />
           <span>{copyLabel}</span>
@@ -842,20 +842,6 @@ export function App() {
                 </ul>
                 <a href="#cli" data-event="pricing_free_scan_click">Run the scan <ArrowIcon /></a>
               </div>
-              <div className="pricing-row pricing-row--reservation">
-                <div>
-                  <span>Founding validation reservation</span>
-                  <strong>¥19,800</strong>
-                  <em>fixed refund date shown before payment</em>
-                </div>
-                <ul>
-                  <li>Credited toward the Launch Evidence Workspace</li>
-                  <li>Automatically refunded if delivery misses the stated date</li>
-                  <li>For sensitive, non-restricted scope projects</li>
-                  <li>No approval outcome attached</li>
-                </ul>
-                <CheckoutCta kind="reservation" />
-              </div>
               <div className="pricing-row pricing-row--launch">
                 <div>
                   <span>Launch Evidence Workspace</span>
@@ -870,24 +856,24 @@ export function App() {
                   <li>Downloadable local compiler; no source upload</li>
                   <li>Future releases are separate unless checkout says otherwise</li>
                 </ul>
-                <CheckoutCta kind="evidence" />
+                <CheckoutCta />
               </div>
             </div>
-            {(!RESERVATION_CHECKOUT_URL || !EVIDENCE_CHECKOUT_URL) && (
+            {!EVIDENCE_CHECKOUT_URL && (
               <p className="checkout-preview-note" role="status">
-                <strong>Checkout preview.</strong> The hosted Merchant of Record checkout is not connected in this
-                build. No payment is accepted or counted from this page.{" "}
+                <strong>Evidence checkout preview.</strong> The Launch Evidence Workspace checkout is not connected
+                in this build. No payment is accepted or counted for this product.{" "}
                 <a href={WORKSPACE_INTEREST_URL} rel="noreferrer" data-event="workspace_interest_click">
                   Share purchase interest on GitHub
                 </a>
-                . This does not reserve a place or accept payment. The issue is public and tied to your GitHub account;
+                . This does not accept payment or create an order. The issue is public and tied to your GitHub account;
                 do not post project details, URLs, identifiers, source, manifest values, report contents,
                 correspondence, credentials, or personal data.
               </p>
             )}
             <p className="pricing-note">
-              The paid download automates evidence production and maintenance. Diagnostic findings stay free. Neither
-              product includes calls, policy advice, security assessment, or an approval guarantee.
+              The paid download automates evidence production and maintenance. Diagnostic findings stay free. The
+              paid workspace does not include calls, policy advice, security assessment, or an approval guarantee.
             </p>
           </section>
 

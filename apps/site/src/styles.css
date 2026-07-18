@@ -1713,14 +1713,6 @@ svg {
   box-shadow: 0.55rem 0.55rem 0 var(--paper-warm);
 }
 
-.pricing-row--reservation {
-  background: rgba(246, 243, 236, 0.46);
-}
-
-.pricing-row__link {
-  color: var(--blueprint);
-}
-
 .pricing-row--launch::before {
   position: absolute;
   top: -0.7rem;
