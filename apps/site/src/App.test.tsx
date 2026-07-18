@@ -35,6 +35,12 @@ describe("ScopeParity marketing site", () => {
       "href",
       "/examples/",
     );
+    const extensionLink = screen.getByRole("link", { name: "Install the free extension" });
+    expect(extensionLink).toHaveAttribute(
+      "href",
+      "https://github.com/sora-volare0319/gh-scopeparity",
+    );
+    expect(extensionLink).toHaveAttribute("data-event", "hero_gh_extension_click");
   });
 
   it("switches sample findings and exposes the aligned fixture without implying approval", async () => {

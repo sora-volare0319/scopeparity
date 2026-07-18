@@ -22,6 +22,17 @@ Review `oauth-evidence.yaml`, replace the example values with the launch values 
 npx -y github:sora-volare0319/scopeparity-cli#v0.1.4 scan . --manifest oauth-evidence.yaml
 ```
 
+Already use GitHub CLI? Install the free extension once:
+
+```bash
+gh extension install sora-volare0319/gh-scopeparity
+```
+
+Then run `gh scopeparity init .` or
+`gh scopeparity scan . --manifest oauth-evidence.yaml`. The extension is a thin
+wrapper around the same pinned CLI. GitHub access fetches the pinned code, while
+repository data stays local and no Google credentials are required.
+
 The current release is distributed from the versioned
 [`scopeparity-cli`](https://github.com/sora-volare0319/scopeparity-cli/tree/v0.1.4)
 repository while the canonical npm package is not authenticated. The bundled

@@ -372,6 +372,19 @@ svg {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+.command-flow__alternative a {
+  color: var(--ink-soft);
+  font-weight: 720;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 0.2rem;
+}
+
+.command-flow__alternative a:hover {
+  color: var(--oxide);
+  text-decoration-color: currentColor;
+}
+
 .command__prompt {
   color: #d1a44f;
   font-weight: 700;
